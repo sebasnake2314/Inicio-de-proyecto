@@ -32,7 +32,7 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Sql_instaler.pantalla_principal
+            Me.MainForm = Global.Sql_instaler.pantalla_principal_sql
         End Sub
     End Class
 End Namespace
