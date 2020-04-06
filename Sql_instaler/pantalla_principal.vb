@@ -1,5 +1,9 @@
 ﻿Imports System.Runtime.InteropServices
 Imports Microsoft.Win32
+Imports System.IO
+Imports Finisar.SQLite
+Imports ns.biz
+Imports ns.ent
 Public Class pantalla_principal_sql
     Private Sub btnclose_Click(sender As Object, e As EventArgs) Handles btnclose.Click
         Try
@@ -124,6 +128,14 @@ Public Class pantalla_principal_sql
         Try
             Process.Start(txtdirectorio.Text)
         Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub pantalla_principal_sql_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Try
+            creacionbd()
+        Catch ex As Exception
+
         End Try
     End Sub
 
@@ -280,6 +292,64 @@ Public Class pantalla_principal_sql
             Me.Close()
         Catch ex As Exception
 
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Funciones para creación de base de datos"
+
+    Public Sub creacionbd()
+        Dim Folder As New FolderBrowserDialog
+        Dim path As String = ""
+        Dim carpeta As String = ""
+        Try
+
+            If IsNothing(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)) Or My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing) = "" Then
+
+                Folder.SelectedPath = System.IO.Directory.GetCurrentDirectory.ToString()
+
+                If Folder.ShowDialog() = DialogResult.OK Then
+
+                    If File.Exists(IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db") Then
+                        MsgBox("Ya éxiste el archivo de almacenamiento en este directorio", vbCritical)
+                    Else
+
+                        'Creo carpeta
+                        carpeta = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler"
+                        My.Computer.FileSystem.CreateDirectory(carpeta)
+
+                        'Directorio Completo con creación con base de datos
+                        path = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db"
+
+                        'Creación de archivo de base de datos.
+                        Dim fs As FileStream = File.Create(path)
+                        fs.Close()
+
+                        Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", path)
+
+                        'Inserto tablas y campos en base de datos
+                        crear_tablas()
+
+                    End If
+                Else
+                    MsgBox("Debe seleccionar la una ubicación para el archivo de almacenamiento de datos", vbInformation)
+                    Exit Sub
+                End If
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical)
+        End Try
+
+    End Sub
+
+    Public Sub crear_tablas()
+        Dim lo_biz As New biz_preferencias
+        Try
+            lo_biz.crear_tablas()
+        Catch ex As Exception
+            Throw ex
         End Try
     End Sub
 
