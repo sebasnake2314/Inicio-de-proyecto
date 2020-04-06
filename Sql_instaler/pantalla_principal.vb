@@ -103,8 +103,6 @@ Public Class pantalla_principal_sql
 
     End Sub
 
-
-
     Private Sub btneditar_Click(sender As Object, e As EventArgs) Handles btneditar.Click
         Try
 
