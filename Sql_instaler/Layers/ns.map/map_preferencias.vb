@@ -1,7 +1,6 @@
 ﻿Imports ns.ent
 Imports System.Data.SQLite
 
-
 Public Class map_preferencias
     Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
     'Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
@@ -103,7 +102,7 @@ Public Class map_preferencias
         Return lo_ret
     End Function
 
-    Public Function f_agregar_ambiente(ByVal p_nombre_base_c As String, ByVal p_host_c As String, ByVal p_puerto_c As String, ByVal p_usuario_c As String, ByVal p_password_c As String, ByVal p_pass_encrip_b As Boolean) As ent_preferencias
+    Public Function f_agregar_ambiente(ByVal p_nombre_base_c As String, ByVal p_host_c As String, ByVal p_puerto_c As String, ByVal p_usuario_c As String, ByVal p_password_c As String, ByVal p_pass_encrip_i As Integer) As ent_preferencias
         Dim lo_ret As New ent_preferencias
         Dim lo_tablas As String = "tb_ambientes"
         Dim lo_dt As New DataTable
@@ -147,9 +146,9 @@ Public Class map_preferencias
             Try
                 Dim TableDB As New DataTable
 
-                Dim sql As String = String.Format("insert into " & lo_tablas & " (amb_nombre_c,amb_ip_c,amd_puerto_c,amb_usuario_c,amb_password_c,amb_pass_encrip_b) values ('{0}','{1}','{2}','{3}','{4}',{5})", p_nombre_base_c, p_host_c, p_puerto_c, p_usuario_c, p_password_c, p_pass_encrip_b)
+                Dim sql As String = String.Format("insert into " & lo_tablas & " (amb_nombre_c,amb_ip_c,amd_puerto_c,amb_usuario_c,amb_password_c,amb_pass_encrip_b) values ('{0}','{1}','{2}','{3}','{4}',{5})", p_nombre_base_c, p_host_c, p_puerto_c, p_usuario_c, p_password_c, p_pass_encrip_i)
 
-                ExecuteNonQuery(Sql, SQLiteCon)
+                ExecuteNonQuery(sql, SQLiteCon)
                 'MsgBox("Insert Data successfully")
             Catch ex As Exception
                 MsgBox(ex.Message)
@@ -252,81 +251,55 @@ Public Class map_preferencias
             Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
             Dim SQLiteCon As New SQLiteConnection(DB_Path_c)
 
+            Try
+                SQLiteCon.Open()
+            Catch ex As Exception
+                SQLiteCon.Dispose()
+                SQLiteCon = Nothing
+                'lo_ret.p_cod_error_i = -1
+                'lo_ret.p_desc_error_c = "Problemas al guardar los datos"
+                Throw ex
+                Exit Sub
+            End Try
 
-        ''----------------------------------------------------------------
-        'Dim objcon As SQLiteConnection
-        'Dim objcomand As SQLiteCommand
+            Try
+                ' Dim Sql As String = String.Format("delete from {0} where amb_nombre_c = '{1}'", lo_tabla, p_nombre_amb_c)
 
-        'Sql = "CREATE TABLE 'tb_ambientes' (" _
-        '        & "'amb_id_i'	INTEGER, " _
-        '        & "'amb_nombre_c' TEXT, " _
-        '        & "'amb_ip_c'	TEXT, " _
-        '        & "'amd_puerto_c'	TEXT, " _
-        '        & "'amb_usuario_c'	TEXT, " _
-        '        & "'amb_password_c'	TEXT, " _
-        '        & "'amb_pass_encrip_b'	BLOB, " _
-        '        & "'amb_tipo_bd_c'	TEXT, " _
-        '        & "PRIMARY KEY('amb_id_i'));"
-        'Try
-        'objcon = New SQLiteConnection(DB_Path & ";New=true;")
-        'objcon.Open()
-        '    objcomand = objcon.CreateCommand()
-        '    objcomand.CommandText = Sql
-        '    objcomand.ExecuteNonQuery()
+                Sql = "CREATE TABLE 'tb_ambientes' (" _
+                    & "'amb_id_i'	INTEGER, " _
+                    & "'amb_nombre_c' TEXT, " _
+                    & "'amb_ip_c'	TEXT, " _
+                    & "'amd_puerto_c'	TEXT, " _
+                    & "'amb_usuario_c'	TEXT, " _
+                    & "'amb_password_c'	TEXT, " _
+                    & "'amb_pass_encrip_b'	BLOB, " _
+                    & "'amb_tipo_bd_c'	TEXT, " _
+                    & "PRIMARY KEY('amb_id_i'));"
 
-        'Catch ex As Exception
+                ExecuteNonQuery(Sql, SQLiteCon)
+            Catch ex As Exception
+                Throw ex
+            End Try
 
-        'End Try
+            Try
+                Sql = "CREATE TABLE 'tb_tipos_paquete' (" _
+                     & "'tp_tipo_paque_c'	TEXT, " _
+                     & "'tb_abre_tipo_c'	TEXT, " _
+                     & "PRIMARY KEY('tp_tipo_paque_c'));"
 
-        Try
-            SQLiteCon.Open()
-        Catch ex As Exception
-            SQLiteCon.Dispose()
-            SQLiteCon = Nothing
-            'lo_ret.p_cod_error_i = -1
-            'lo_ret.p_desc_error_c = "Problemas al guardar los datos"
-            Throw ex
-            Exit Sub
-        End Try
+                ExecuteNonQuery(Sql, SQLiteCon)
 
-        Try
-            ' Dim Sql As String = String.Format("delete from {0} where amb_nombre_c = '{1}'", lo_tabla, p_nombre_amb_c)
+                'Se agregan los campos a base de datos
+                agregar_campos()
 
-            Sql = "CREATE TABLE 'tb_ambientes' (" _
-                & "'amb_id_i'	INTEGER, " _
-                & "'amb_nombre_c' TEXT, " _
-                & "'amb_ip_c'	TEXT, " _
-                & "'amd_puerto_c'	TEXT, " _
-                & "'amb_usuario_c'	TEXT, " _
-                & "'amb_password_c'	TEXT, " _
-                & "'amb_pass_encrip_b'	BLOB, " _
-                & "'amb_tipo_bd_c'	TEXT, " _
-                & "PRIMARY KEY('amb_id_i'));"
+                SQLiteCon.Close()
+            Catch ex As Exception
+                Throw ex
+            End Try
 
-            ExecuteNonQuery(Sql, SQLiteCon)
+
         Catch ex As Exception
             Throw ex
-        End Try
-
-        Try
-            Sql = "CREATE TABLE 'tb_tipos_paquete' (" _
-                 & "'tp_tipo_paque_c'	TEXT, " _
-                 & "'tb_abre_tipo_c'	TEXT, " _
-                 & "PRIMARY KEY('tp_tipo_paque_c'));"
-
-            ExecuteNonQuery(Sql, SQLiteCon)
-
-
-            agregar_campos()
-
-            SQLiteCon.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
-
-        ExecuteNonQuery(Sql, SQLiteCon)
-        Catch ex As Exception
-
         End Try
 
     End Sub
@@ -344,8 +317,6 @@ Public Class map_preferencias
             Catch ex As Exception
                 SQLiteCon.Dispose()
                 SQLiteCon = Nothing
-                'lo_ret.p_cod_error_i = -1
-                'lo_ret.p_desc_error_c = "Problemas al guardar los datos"
                 Throw ex
                 Exit Sub
             End Try
@@ -373,9 +344,27 @@ Public Class map_preferencias
             End Try
 
         Catch ex As Exception
-
+            Throw ex
         End Try
     End Sub
+
+    Public Function f_comprobar_bd() As ent_retorno
+        Dim lo_ret As New ent_retorno
+        Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
+        Dim SQLiteCon As New SQLiteConnection(DB_Path_c)
+
+        Try
+            SQLiteCon.Open()
+            lo_ret.p_cod_error_i = 1
+            lo_ret.p_desc_error_c = "Conexión con Base de datos con éxito"
+        Catch ex As Exception
+            SQLiteCon.Dispose()
+            SQLiteCon = Nothing
+            lo_ret.p_cod_error_i = 0
+            lo_ret.p_desc_error_c = "Problemas con Conexión a Base de datos"
+        End Try
+        Return lo_ret
+    End Function
 
     Private Sub LoadDB(ByVal q As String, ByVal tbl As DataTable, ByVal cn As SQLiteConnection)
         Dim SQLiteDA As New SQLiteDataAdapter(q, cn)

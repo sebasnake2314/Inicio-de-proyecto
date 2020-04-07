@@ -1,6 +1,5 @@
 ﻿Public Class ent_retorno
 
-
     Private _p_desc_error_c As String
     Private _p_cod_error_i As Integer
 

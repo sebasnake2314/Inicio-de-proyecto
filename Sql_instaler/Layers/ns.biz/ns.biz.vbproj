@@ -48,6 +48,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ns.map, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ns.map\bin\Debug\ns.map.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -116,10 +120,6 @@
     <ProjectReference Include="..\ns.ent\ns.ent.vbproj">
       <Project>{372001f2-c595-4ba9-91a7-fa07e50940e3}</Project>
       <Name>ns.ent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ns.map\ns.map.vbproj">
-      <Project>{93fc7a52-5668-42ff-aebc-988db8d86051}</Project>
-      <Name>ns.map</Name>
     </ProjectReference>
     <ProjectReference Include="..\ns.utl\ns.utl.vbproj">
       <Project>{c6a3fce2-c04e-4536-8c4d-cf91bbf99215}</Project>

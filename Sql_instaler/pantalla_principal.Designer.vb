@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class pantalla_principal_sql
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class pantalla_principal_sql
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pantalla_principal_sql))
@@ -34,6 +34,14 @@ Partial Class pantalla_principal_sql
         Me.grip_nombre_archi = New System.Windows.Forms.DataGridView()
         Me.nombre_archivo_sql = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.selecionar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lbconex = New System.Windows.Forms.Label()
+        Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.PreferenciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_conex = New System.Windows.Forms.PictureBox()
         Me.btnunificar = New System.Windows.Forms.PictureBox()
         Me.btnactualizar = New System.Windows.Forms.PictureBox()
         Me.btnabrirarchivo = New System.Windows.Forms.PictureBox()
@@ -46,12 +54,11 @@ Partial Class pantalla_principal_sql
         Me.btnmini = New System.Windows.Forms.PictureBox()
         Me.btnclose = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.titlebar.SuspendLayout()
         CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
+        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnunificar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnactualizar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnabrirarchivo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,8 +71,6 @@ Partial Class pantalla_principal_sql
         CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'titlebar
@@ -169,6 +174,71 @@ Partial Class pantalla_principal_sql
         Me.selecionar.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.selecionar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.selecionar.Width = 105
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.MenuStrip1)
+        Me.Panel1.Location = New System.Drawing.Point(0, 46)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(558, 23)
+        Me.Panel1.TabIndex = 27
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(558, 24)
+        Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'ArchivoToolStripMenuItem
+        '
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PreferenciasToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
+        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.ArchivoToolStripMenuItem.Text = "Archivo"
+        '
+        'SalirToolStripMenuItem
+        '
+        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SalirToolStripMenuItem.Text = "Salir"
+        '
+        'lbconex
+        '
+        Me.lbconex.AutoSize = True
+        Me.lbconex.Font = New System.Drawing.Font("Century Gothic", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbconex.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.lbconex.Location = New System.Drawing.Point(303, 428)
+        Me.lbconex.Name = "lbconex"
+        Me.lbconex.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.lbconex.Size = New System.Drawing.Size(0, 16)
+        Me.lbconex.TabIndex = 29
+        Me.lbconex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'NotifyIcon1
+        '
+        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
+        Me.NotifyIcon1.Text = "Sql instaler"
+        Me.NotifyIcon1.Visible = True
+        '
+        'PreferenciasToolStripMenuItem
+        '
+        Me.PreferenciasToolStripMenuItem.Name = "PreferenciasToolStripMenuItem"
+        Me.PreferenciasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PreferenciasToolStripMenuItem.Text = "Preferencias"
+        '
+        'btn_conex
+        '
+        Me.btn_conex.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_conex.Image = Global.Sql_instaler.My.Resources.Resources.disconnect
+        Me.btn_conex.Location = New System.Drawing.Point(522, 425)
+        Me.btn_conex.Name = "btn_conex"
+        Me.btn_conex.Size = New System.Drawing.Size(24, 22)
+        Me.btn_conex.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btn_conex.TabIndex = 28
+        Me.btn_conex.TabStop = False
         '
         'btnunificar
         '
@@ -319,42 +389,14 @@ Partial Class pantalla_principal_sql
         Me.PictureBox1.TabIndex = 1
         Me.PictureBox1.TabStop = False
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.MenuStrip1)
-        Me.Panel1.Location = New System.Drawing.Point(0, 46)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(558, 23)
-        Me.Panel1.TabIndex = 27
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(558, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'ArchivoToolStripMenuItem
-        '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
-        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
-        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.ArchivoToolStripMenuItem.Text = "Archivo"
-        '
-        'SalirToolStripMenuItem
-        '
-        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SalirToolStripMenuItem.Text = "Salir"
-        '
         'pantalla_principal_sql
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(558, 432)
+        Me.ClientSize = New System.Drawing.Size(558, 452)
+        Me.Controls.Add(Me.lbconex)
+        Me.Controls.Add(Me.btn_conex)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.btnunificar)
         Me.Controls.Add(Me.btnactualizar)
@@ -381,6 +423,11 @@ Partial Class pantalla_principal_sql
         Me.titlebar.ResumeLayout(False)
         Me.titlebar.PerformLayout()
         CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
+        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnunificar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnactualizar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnabrirarchivo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -393,10 +440,6 @@ Partial Class pantalla_principal_sql
         CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -428,4 +471,8 @@ Partial Class pantalla_principal_sql
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ArchivoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents btn_conex As PictureBox
+    Friend WithEvents lbconex As Label
+    Friend WithEvents NotifyIcon1 As NotifyIcon
+    Friend WithEvents PreferenciasToolStripMenuItem As ToolStripMenuItem
 End Class

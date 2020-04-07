@@ -26,15 +26,15 @@ Public Class biz_preferencias
 
     Public Function f_agregar_ambiente(ByVal p_nombre_base_c As String, ByVal p_host_c As String, ByVal p_puerto_c As String, ByVal p_usuario_c As String, ByVal p_password_c As String, ByVal p_pass_encrip_b As Boolean) As ent_retorno
         Dim lo_ret As New ent_retorno
-
+        Dim lo_encrip As Integer = 0
         Try
             If p_pass_encrip_b = True Then
-                p_pass_encrip_b = 1
+                lo_encrip = 1
             Else
-                p_pass_encrip_b = 0
+                lo_encrip = 0
             End If
 
-            lo_ret = io_map.f_agregar_ambiente(p_nombre_base_c, p_host_c, p_puerto_c, p_usuario_c, p_password_c, p_pass_encrip_b)
+            lo_ret = io_map.f_agregar_ambiente(p_nombre_base_c, p_host_c, p_puerto_c, p_usuario_c, p_password_c, lo_encrip)
 
         Catch ex As Exception
 
@@ -76,5 +76,17 @@ Public Class biz_preferencias
             Throw ex
         End Try
     End Sub
+
+    Public Function f_comprobar_bd() As ent_retorno
+        Dim lo_ret As New ent_retorno
+        Dim lo_map As New map_preferencias
+        Try
+            lo_ret = lo_map.f_comprobar_bd()
+        Catch ex As Exception
+            Throw ex
+        End Try
+
+        Return lo_ret
+    End Function
 
 End Class

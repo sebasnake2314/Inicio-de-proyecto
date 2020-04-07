@@ -5,6 +5,7 @@ Imports Finisar.SQLite
 Imports ns.biz
 Imports ns.ent
 Public Class pantalla_principal_sql
+    Dim lo_ret_conex As New ent_retorno
     Private Sub btnclose_Click(sender As Object, e As EventArgs) Handles btnclose.Click
         Try
             Me.Close()
@@ -130,7 +131,11 @@ Public Class pantalla_principal_sql
     End Sub
 
     Private Sub pantalla_principal_sql_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         Try
+
+            'NotifyIcon1.ShowBalloonTip(1000, "Prueba1", "Prueba2", ToolTipIcon.None)
+
             creacionbd()
         Catch ex As Exception
 
@@ -298,41 +303,55 @@ Public Class pantalla_principal_sql
 #Region "Funciones para creación de base de datos"
 
     Public Sub creacionbd()
-        Dim Folder As New FolderBrowserDialog
-        Dim path As String = ""
-        Dim carpeta As String = ""
+
+        Dim lo_biz As New biz_preferencias
+        Dim lo_ret As New ent_retorno
+        Dim count_veri As Integer = 0
         Try
 
             If IsNothing(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)) Or My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing) = "" Then
+                MsgBox("Debe seleccionar la una ubicación para el archivo de almacenamiento de datos", vbInformation)
+                f_crear_bd_auto()
 
-                Folder.SelectedPath = System.IO.Directory.GetCurrentDirectory.ToString()
+                lo_ret_conex = lo_biz.f_comprobar_bd()
+                NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
+                btn_conex.Image = My.Resources.connect
+                mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
 
-                If Folder.ShowDialog() = DialogResult.OK Then
+            Else
 
-                    If File.Exists(IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db") Then
-                        MsgBox("Ya éxiste el archivo de almacenamiento en este directorio", vbCritical)
+                'Compruebo existencia de pase de datos en agregado en ruta registry
+                lo_ret_conex = lo_biz.f_comprobar_bd()
+
+                If lo_ret_conex.p_cod_error_i = 0 Then
+
+                    If MsgBox(lo_ret_conex.p_desc_error_c & "No se puede encontrar la base de datos en la ruta actual " & My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing) & ". ¿Desea selecionar de forma manual ubicación de base de datos?", vbInformation + vbYesNo, "Atención") = vbYes Then
+                        f_crear_bd_manual()
+                        count_veri = 1
                     Else
-
-                        'Creo carpeta
-                        carpeta = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler"
-                        My.Computer.FileSystem.CreateDirectory(carpeta)
-
-                        'Directorio Completo con creación con base de datos
-                        path = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db"
-
-                        'Creación de archivo de base de datos.
-                        Dim fs As FileStream = File.Create(path)
-                        fs.Close()
-
-                        Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", path)
-
-                        'Inserto tablas y campos en base de datos
-                        crear_tablas()
-
+                        f_crear_bd_auto()
+                        count_veri = 1
                     End If
+
                 Else
-                    MsgBox("Debe seleccionar la una ubicación para el archivo de almacenamiento de datos", vbInformation)
-                    Exit Sub
+
+                    NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
+                    btn_conex.Image = My.Resources.connect
+                    mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
+
+                End If
+
+                If count_veri = 1 Then
+                    lo_ret_conex = lo_biz.f_comprobar_bd()
+                    If lo_ret_conex.p_cod_error_i = 1 Then
+                        NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
+                        btn_conex.Image = My.Resources.connect
+                        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
+                    Else
+                        NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Error)
+                    End If
+
+
                 End If
             End If
 
@@ -351,6 +370,160 @@ Public Class pantalla_principal_sql
         End Try
     End Sub
 
+    Private Sub f_crear_bd_manual()
+        Dim Folder As New FolderBrowserDialog
+        Dim path As String = ""
+        Dim carpeta As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)
+        Dim carpeta2 As String = System.IO.Directory.GetCurrentDirectory.ToString()
+
+        Try
+
+
+            'Busqueda de ruta de carpeta donde se encuentran los archivos .aspx
+            Dim directorio As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)
+            Dim arr2 As String()
+            Dim count As Integer
+            Dim direct_part As String = ""
+            Dim direct_busqueda As String = ""
+            arr2 = Split(directorio, Chr(92))
+            count = arr2.Count
+            For j As Integer = 0 To arr2.Length
+
+                direct_part += arr2(j) + Chr(92)
+
+                If Directory.Exists(direct_part) Then
+
+                    direct_busqueda += arr2(j) + Chr(92)
+
+                Else
+                    Exit For
+                End If
+            Next
+
+
+            Folder.SelectedPath = direct_busqueda
+
+            If Folder.ShowDialog() = DialogResult.OK Then
+
+                If File.Exists(IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db") Then
+                    If MsgBox("Actualmente en la ruta selecionada existe una base datos. ¿Desea utilizarla?", vbInformation + vbYesNo, "Atención") = vbYes Then
+                        Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", path)
+                    Else
+                        MsgBox("¿Desea usar esta base de datos? ", vbInformation)
+                        If DialogResult = DialogResult.Yes Then
+                            f_crear_bd_auto()
+                        End If
+                    End If
+
+                Else
+
+                    If MsgBox("No se encontro ninguna base de datos en carpeta selecionada. ¿Desea crearla?", vbYesNo) = vbYes Then
+                        f_crear_bd_auto()
+                    End If
+
+                End If
+            Else
+                MsgBox("Debe selecionar una carpeta", vbInformation)
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub f_crear_bd_auto()
+        Dim Folder As New FolderBrowserDialog
+        Dim path As String = ""
+        Dim carpeta As String = ""
+        Folder.SelectedPath = System.IO.Directory.GetCurrentDirectory.ToString()
+        Dim seleciono As Integer
+        Try
+
+            While seleciono = 0
+
+                If Folder.ShowDialog() = DialogResult.OK Then
+
+                    'Creo carpeta
+                    carpeta = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler"
+                    My.Computer.FileSystem.CreateDirectory(carpeta)
+
+                    'Directorio Completo con creación con base de datos
+                    path = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db"
+
+                    'Creación de archivo de base de datos.
+                    Dim fs As FileStream = File.Create(path)
+                    fs.Close()
+
+                    Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", path)
+                    'Inserto tablas y campos en base de datos
+                    crear_tablas()
+                    seleciono = 1
+                Else
+
+                    MsgBox("No selecciono ninguna carpeta, Debe seleccionar", vbInformation)
+
+                End If
+
+            End While
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Tooltip botones"
+    Sub mensajetooltip(ByVal globo As ToolTip, ByVal boton As PictureBox, ByVal mensaje As String)
+        globo.RemoveAll()
+        globo.SetToolTip(boton, mensaje)
+        globo.InitialDelay = 100
+        globo.IsBalloon = False
+    End Sub
+    Private Sub btnselecdirectorio_MouseEnter(sender As Object, e As EventArgs) Handles btnselecdirectorio.MouseEnter
+        mensajetooltip(ToolTip, btnselecdirectorio, "Selecionar una carpeta")
+    End Sub
+    Private Sub btnabrirdirectorio_MouseEnter(sender As Object, e As EventArgs) Handles btnabrirdirectorio.MouseEnter
+        mensajetooltip(ToolTip, btnabrirdirectorio, "Abrir directorio")
+    End Sub
+
+    Private Sub btnsubir_MouseEnter(sender As Object, e As EventArgs) Handles btnsubir.MouseEnter
+        mensajetooltip(ToolTip, btnsubir, "Subir")
+    End Sub
+    Private Sub btnbajar_MouseEnter(sender As Object, e As EventArgs) Handles btnbajar.MouseEnter
+        mensajetooltip(ToolTip, btnbajar, "Bajar")
+    End Sub
+    Private Sub btnselecionartodo_MouseEnter(sender As Object, e As EventArgs) Handles btnselecionartodo.MouseEnter
+        mensajetooltip(ToolTip, btnselecionartodo, "Seleccionar todo")
+    End Sub
+    Private Sub btnactualizar_MouseEnter(sender As Object, e As EventArgs) Handles btnactualizar.MouseEnter
+        mensajetooltip(ToolTip, btnactualizar, "Actualizar")
+    End Sub
+    Private Sub btneditar_MouseEnter(sender As Object, e As EventArgs) Handles btneditar.MouseEnter
+        mensajetooltip(ToolTip, btneditar, "Editar nombre de archivo")
+    End Sub
+    Private Sub btnabrirarchivo_MouseEnter(sender As Object, e As EventArgs) Handles btnabrirarchivo.MouseEnter
+        mensajetooltip(ToolTip, btnabrirarchivo, "Mirar archivo")
+    End Sub
+    Private Sub btn_conex_MouseEnter(sender As Object, e As EventArgs) Handles btn_conex.MouseEnter
+        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
+    End Sub
+    Private Sub btnclose_MouseEnter(sender As Object, e As EventArgs) Handles btnclose.MouseEnter
+        mensajetooltip(ToolTip, btnclose, "Cerrar")
+    End Sub
+    Private Sub btnmini_MouseEnter(sender As Object, e As EventArgs) Handles btnmini.MouseEnter
+        mensajetooltip(ToolTip, btnmini, "Minimizar")
+    End Sub
+
+    Private Sub PreferenciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferenciasToolStripMenuItem.Click
+        Try
+            preferencias.ShowDialog()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
 #End Region
 
 End Class
