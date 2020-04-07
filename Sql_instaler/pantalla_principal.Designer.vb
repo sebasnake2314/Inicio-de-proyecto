@@ -25,8 +25,20 @@ Partial Class pantalla_principal_sql
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pantalla_principal_sql))
         Me.titlebar = New System.Windows.Forms.Panel()
+        Me.btnmini = New System.Windows.Forms.PictureBox()
+        Me.btnclose = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.btnunificar = New System.Windows.Forms.PictureBox()
+        Me.btnactualizar = New System.Windows.Forms.PictureBox()
+        Me.btnabrirarchivo = New System.Windows.Forms.PictureBox()
+        Me.btneditar = New System.Windows.Forms.PictureBox()
+        Me.btnselecionartodo = New System.Windows.Forms.PictureBox()
+        Me.btnabrirdirectorio = New System.Windows.Forms.PictureBox()
+        Me.btnsubir = New System.Windows.Forms.PictureBox()
+        Me.btnbajar = New System.Windows.Forms.PictureBox()
+        Me.btnselecdirectorio = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtdirectorio = New System.Windows.Forms.TextBox()
         Me.lbcantarch = New System.Windows.Forms.Label()
@@ -37,28 +49,15 @@ Partial Class pantalla_principal_sql
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PreferenciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.lbconex = New System.Windows.Forms.Label()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.PreferenciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_conex = New System.Windows.Forms.PictureBox()
-        Me.btnunificar = New System.Windows.Forms.PictureBox()
-        Me.btnactualizar = New System.Windows.Forms.PictureBox()
-        Me.btnabrirarchivo = New System.Windows.Forms.PictureBox()
-        Me.btneditar = New System.Windows.Forms.PictureBox()
-        Me.btnselecionartodo = New System.Windows.Forms.PictureBox()
-        Me.btnabrirdirectorio = New System.Windows.Forms.PictureBox()
-        Me.btnsubir = New System.Windows.Forms.PictureBox()
-        Me.btnbajar = New System.Windows.Forms.PictureBox()
-        Me.btnselecdirectorio = New System.Windows.Forms.PictureBox()
-        Me.btnmini = New System.Windows.Forms.PictureBox()
-        Me.btnclose = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.titlebar.SuspendLayout()
-        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
-        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnunificar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnactualizar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnabrirarchivo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,9 +67,10 @@ Partial Class pantalla_principal_sql
         CType(Me.btnsubir, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnbajar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnselecdirectorio, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
+        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'titlebar
@@ -86,6 +86,30 @@ Partial Class pantalla_principal_sql
         Me.titlebar.Size = New System.Drawing.Size(558, 47)
         Me.titlebar.TabIndex = 0
         '
+        'btnmini
+        '
+        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
+        Me.btnmini.Location = New System.Drawing.Point(483, 9)
+        Me.btnmini.Name = "btnmini"
+        Me.btnmini.Size = New System.Drawing.Size(33, 31)
+        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnmini.TabIndex = 6
+        Me.btnmini.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnmini, "Minimizar")
+        '
+        'btnclose
+        '
+        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
+        Me.btnclose.Location = New System.Drawing.Point(522, 9)
+        Me.btnclose.Name = "btnclose"
+        Me.btnclose.Size = New System.Drawing.Size(33, 31)
+        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnclose.TabIndex = 5
+        Me.btnclose.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnclose, "Cerrar")
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -97,148 +121,15 @@ Partial Class pantalla_principal_sql
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Sql Instaler"
         '
-        'Label1
+        'PictureBox1
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label1.Location = New System.Drawing.Point(12, 91)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(193, 21)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "Seleciona una carpeta:"
-        '
-        'txtdirectorio
-        '
-        Me.txtdirectorio.BackColor = System.Drawing.Color.White
-        Me.txtdirectorio.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.txtdirectorio.Location = New System.Drawing.Point(12, 122)
-        Me.txtdirectorio.Name = "txtdirectorio"
-        Me.txtdirectorio.ReadOnly = True
-        Me.txtdirectorio.Size = New System.Drawing.Size(486, 20)
-        Me.txtdirectorio.TabIndex = 9
-        '
-        'lbcantarch
-        '
-        Me.lbcantarch.AutoSize = True
-        Me.lbcantarch.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbcantarch.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbcantarch.Location = New System.Drawing.Point(203, 145)
-        Me.lbcantarch.Name = "lbcantarch"
-        Me.lbcantarch.Size = New System.Drawing.Size(0, 16)
-        Me.lbcantarch.TabIndex = 11
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label3.Location = New System.Drawing.Point(13, 145)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(193, 17)
-        Me.Label3.TabIndex = 10
-        Me.Label3.Text = "Cant. archivos encontrados:"
-        Me.Label3.Visible = False
-        '
-        'grip_nombre_archi
-        '
-        Me.grip_nombre_archi.AllowUserToAddRows = False
-        Me.grip_nombre_archi.AllowUserToDeleteRows = False
-        Me.grip_nombre_archi.BackgroundColor = System.Drawing.Color.White
-        Me.grip_nombre_archi.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.grip_nombre_archi.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken
-        Me.grip_nombre_archi.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        Me.grip_nombre_archi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grip_nombre_archi.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.nombre_archivo_sql, Me.selecionar})
-        Me.grip_nombre_archi.GridColor = System.Drawing.Color.FromArgb(CType(CType(4, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.grip_nombre_archi.Location = New System.Drawing.Point(16, 207)
-        Me.grip_nombre_archi.Name = "grip_nombre_archi"
-        Me.grip_nombre_archi.ReadOnly = True
-        Me.grip_nombre_archi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grip_nombre_archi.Size = New System.Drawing.Size(530, 212)
-        Me.grip_nombre_archi.TabIndex = 18
-        Me.grip_nombre_archi.Visible = False
-        '
-        'nombre_archivo_sql
-        '
-        Me.nombre_archivo_sql.HeaderText = "Nombre Archivo"
-        Me.nombre_archivo_sql.Name = "nombre_archivo_sql"
-        Me.nombre_archivo_sql.ReadOnly = True
-        Me.nombre_archivo_sql.Width = 380
-        '
-        'selecionar
-        '
-        Me.selecionar.HeaderText = "Seleccionar"
-        Me.selecionar.Name = "selecionar"
-        Me.selecionar.ReadOnly = True
-        Me.selecionar.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.selecionar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.selecionar.Width = 105
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.MenuStrip1)
-        Me.Panel1.Location = New System.Drawing.Point(0, 46)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(558, 23)
-        Me.Panel1.TabIndex = 27
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(558, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'ArchivoToolStripMenuItem
-        '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PreferenciasToolStripMenuItem, Me.SalirToolStripMenuItem})
-        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
-        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.ArchivoToolStripMenuItem.Text = "Archivo"
-        '
-        'SalirToolStripMenuItem
-        '
-        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SalirToolStripMenuItem.Text = "Salir"
-        '
-        'lbconex
-        '
-        Me.lbconex.AutoSize = True
-        Me.lbconex.Font = New System.Drawing.Font("Century Gothic", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbconex.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lbconex.Location = New System.Drawing.Point(303, 428)
-        Me.lbconex.Name = "lbconex"
-        Me.lbconex.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.lbconex.Size = New System.Drawing.Size(0, 16)
-        Me.lbconex.TabIndex = 29
-        Me.lbconex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'NotifyIcon1
-        '
-        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
-        Me.NotifyIcon1.Text = "Sql instaler"
-        Me.NotifyIcon1.Visible = True
-        '
-        'PreferenciasToolStripMenuItem
-        '
-        Me.PreferenciasToolStripMenuItem.Name = "PreferenciasToolStripMenuItem"
-        Me.PreferenciasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PreferenciasToolStripMenuItem.Text = "Preferencias"
-        '
-        'btn_conex
-        '
-        Me.btn_conex.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btn_conex.Image = Global.Sql_instaler.My.Resources.Resources.disconnect
-        Me.btn_conex.Location = New System.Drawing.Point(522, 425)
-        Me.btn_conex.Name = "btn_conex"
-        Me.btn_conex.Size = New System.Drawing.Size(24, 22)
-        Me.btn_conex.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btn_conex.TabIndex = 28
-        Me.btn_conex.TabStop = False
+        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
+        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
         '
         'btnunificar
         '
@@ -355,39 +246,148 @@ Partial Class pantalla_principal_sql
         Me.btnselecdirectorio.TabStop = False
         Me.ToolTip.SetToolTip(Me.btnselecdirectorio, "Selecionar una carpeta")
         '
-        'btnmini
+        'Label1
         '
-        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
-        Me.btnmini.Location = New System.Drawing.Point(483, 9)
-        Me.btnmini.Name = "btnmini"
-        Me.btnmini.Size = New System.Drawing.Size(33, 31)
-        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnmini.TabIndex = 6
-        Me.btnmini.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnmini, "Minimizar")
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label1.Location = New System.Drawing.Point(12, 91)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(193, 21)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "Seleciona una carpeta:"
         '
-        'btnclose
+        'txtdirectorio
         '
-        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
-        Me.btnclose.Location = New System.Drawing.Point(522, 9)
-        Me.btnclose.Name = "btnclose"
-        Me.btnclose.Size = New System.Drawing.Size(33, 31)
-        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnclose.TabIndex = 5
-        Me.btnclose.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnclose, "Cerrar")
+        Me.txtdirectorio.BackColor = System.Drawing.Color.White
+        Me.txtdirectorio.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.txtdirectorio.Location = New System.Drawing.Point(12, 122)
+        Me.txtdirectorio.Name = "txtdirectorio"
+        Me.txtdirectorio.ReadOnly = True
+        Me.txtdirectorio.Size = New System.Drawing.Size(486, 20)
+        Me.txtdirectorio.TabIndex = 9
         '
-        'PictureBox1
+        'lbcantarch
         '
-        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
-        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
+        Me.lbcantarch.AutoSize = True
+        Me.lbcantarch.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbcantarch.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.lbcantarch.Location = New System.Drawing.Point(203, 145)
+        Me.lbcantarch.Name = "lbcantarch"
+        Me.lbcantarch.Size = New System.Drawing.Size(0, 16)
+        Me.lbcantarch.TabIndex = 11
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label3.Location = New System.Drawing.Point(13, 145)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(193, 17)
+        Me.Label3.TabIndex = 10
+        Me.Label3.Text = "Cant. archivos encontrados:"
+        Me.Label3.Visible = False
+        '
+        'grip_nombre_archi
+        '
+        Me.grip_nombre_archi.AllowUserToAddRows = False
+        Me.grip_nombre_archi.AllowUserToDeleteRows = False
+        Me.grip_nombre_archi.BackgroundColor = System.Drawing.Color.White
+        Me.grip_nombre_archi.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.grip_nombre_archi.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken
+        Me.grip_nombre_archi.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.grip_nombre_archi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.grip_nombre_archi.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.nombre_archivo_sql, Me.selecionar})
+        Me.grip_nombre_archi.GridColor = System.Drawing.Color.FromArgb(CType(CType(4, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.grip_nombre_archi.Location = New System.Drawing.Point(16, 207)
+        Me.grip_nombre_archi.Name = "grip_nombre_archi"
+        Me.grip_nombre_archi.ReadOnly = True
+        Me.grip_nombre_archi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.grip_nombre_archi.Size = New System.Drawing.Size(530, 212)
+        Me.grip_nombre_archi.TabIndex = 18
+        Me.grip_nombre_archi.Visible = False
+        '
+        'nombre_archivo_sql
+        '
+        Me.nombre_archivo_sql.HeaderText = "Nombre Archivo"
+        Me.nombre_archivo_sql.Name = "nombre_archivo_sql"
+        Me.nombre_archivo_sql.ReadOnly = True
+        Me.nombre_archivo_sql.Width = 380
+        '
+        'selecionar
+        '
+        Me.selecionar.HeaderText = "Seleccionar"
+        Me.selecionar.Name = "selecionar"
+        Me.selecionar.ReadOnly = True
+        Me.selecionar.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.selecionar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.selecionar.Width = 105
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.MenuStrip1)
+        Me.Panel1.Location = New System.Drawing.Point(0, 46)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(558, 23)
+        Me.Panel1.TabIndex = 27
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(558, 24)
+        Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'ArchivoToolStripMenuItem
+        '
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PreferenciasToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
+        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.ArchivoToolStripMenuItem.Text = "Archivo"
+        '
+        'PreferenciasToolStripMenuItem
+        '
+        Me.PreferenciasToolStripMenuItem.Name = "PreferenciasToolStripMenuItem"
+        Me.PreferenciasToolStripMenuItem.Size = New System.Drawing.Size(138, 22)
+        Me.PreferenciasToolStripMenuItem.Text = "Preferencias"
+        '
+        'SalirToolStripMenuItem
+        '
+        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(138, 22)
+        Me.SalirToolStripMenuItem.Text = "Salir"
+        '
+        'lbconex
+        '
+        Me.lbconex.AutoSize = True
+        Me.lbconex.Font = New System.Drawing.Font("Century Gothic", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbconex.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.lbconex.Location = New System.Drawing.Point(303, 428)
+        Me.lbconex.Name = "lbconex"
+        Me.lbconex.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.lbconex.Size = New System.Drawing.Size(0, 16)
+        Me.lbconex.TabIndex = 29
+        Me.lbconex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'NotifyIcon1
+        '
+        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
+        Me.NotifyIcon1.Text = "Sql instaler"
+        Me.NotifyIcon1.Visible = True
+        '
+        'btn_conex
+        '
+        Me.btn_conex.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btn_conex.Image = Global.Sql_instaler.My.Resources.Resources.disconnect
+        Me.btn_conex.Location = New System.Drawing.Point(522, 425)
+        Me.btn_conex.Name = "btn_conex"
+        Me.btn_conex.Size = New System.Drawing.Size(24, 22)
+        Me.btn_conex.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btn_conex.TabIndex = 28
+        Me.btn_conex.TabStop = False
         '
         'pantalla_principal_sql
         '
@@ -422,12 +422,9 @@ Partial Class pantalla_principal_sql
         Me.ToolTip.SetToolTip(Me, "Abrir directorio")
         Me.titlebar.ResumeLayout(False)
         Me.titlebar.PerformLayout()
-        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnunificar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnactualizar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnabrirarchivo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -437,9 +434,12 @@ Partial Class pantalla_principal_sql
         CType(Me.btnsubir, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnbajar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnselecdirectorio, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
+        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

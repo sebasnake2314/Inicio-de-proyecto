@@ -71,6 +71,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="encabezado.vb" />
     <Compile Include="ent_bases.vb" />
     <Compile Include="ent_consulta_existente.vb" />
     <Compile Include="ent_global.vb" />

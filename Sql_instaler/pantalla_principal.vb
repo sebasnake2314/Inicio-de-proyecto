@@ -4,11 +4,14 @@ Imports System.IO
 Imports Finisar.SQLite
 Imports ns.biz
 Imports ns.ent
+
 Public Class pantalla_principal_sql
     Dim lo_ret_conex As New ent_retorno
     Private Sub btnclose_Click(sender As Object, e As EventArgs) Handles btnclose.Click
         Try
             Me.Close()
+
+
         Catch ex As Exception
 
         End Try
@@ -61,7 +64,7 @@ Public Class pantalla_principal_sql
                     btnselecionartodo.Visible = False
                     btnabrirarchivo.Visible = False
                     btnactualizar.Visible = False
-
+                    btnunificar.Visible = False
                 Else
                     lbcantarch.Text = lista_archivos_sql.Count
                     'Agrego lista de archivos a ListView
@@ -80,6 +83,7 @@ Public Class pantalla_principal_sql
                     btnselecionartodo.Visible = True
                     btnabrirarchivo.Visible = True
                     btnactualizar.Visible = True
+                    btnunificar.Visible = True
                 End If
 
             Else
@@ -96,6 +100,7 @@ Public Class pantalla_principal_sql
                 btnselecionartodo.Visible = False
                 btnabrirarchivo.Visible = False
                 btnactualizar.Visible = False
+                btnunificar.Visible = False
             End If
 
         Catch ex As Exception
@@ -131,10 +136,17 @@ Public Class pantalla_principal_sql
     End Sub
 
     Private Sub pantalla_principal_sql_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim encabezado As New encabezado
 
         Try
 
-            'NotifyIcon1.ShowBalloonTip(1000, "Prueba1", "Prueba2", ToolTipIcon.None)
+            If IsNothing(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "encabezado_SQL_Instaler", Nothing)) Or My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "encabezado_SQL_Instaler", Nothing) = "" Then
+                Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "encabezado_SQL_Instaler", encabezado.crear_encabezado)
+            End If
+
+            If IsNothing(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", Nothing)) Or My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", Nothing) = "" Then
+                Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", encabezado.crear_separador)
+            End If
 
             creacionbd()
         Catch ex As Exception
@@ -277,7 +289,6 @@ Public Class pantalla_principal_sql
                 arr = Split(arr(arr.Length - 2), Chr(92))
                 archivo = arr(arr.Length - 1)
 
-
                 grip_nombre_archi.Rows.Add(archivo)
 
                 coun += 1
@@ -349,6 +360,8 @@ Public Class pantalla_principal_sql
                         mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
                     Else
                         NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Error)
+                        btn_conex.Image = My.Resources.disconnect
+                        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
                     End If
 
 
@@ -516,6 +529,9 @@ Public Class pantalla_principal_sql
     Private Sub btnmini_MouseEnter(sender As Object, e As EventArgs) Handles btnmini.MouseEnter
         mensajetooltip(ToolTip, btnmini, "Minimizar")
     End Sub
+    Private Sub btnunificar_MouseEnter(sender As Object, e As EventArgs) Handles btnunificar.MouseEnter
+        mensajetooltip(ToolTip, btnmini, "Crear script Unificado")
+    End Sub
 
     Private Sub PreferenciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferenciasToolStripMenuItem.Click
         Try
@@ -524,6 +540,88 @@ Public Class pantalla_principal_sql
             Throw ex
         End Try
     End Sub
+
+    Private Sub btnunificar_Click(sender As Object, e As EventArgs) Handles btnunificar.Click
+
+        Dim coun As Integer = 0
+        Try
+
+            For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
+
+                If grip_nombre_archi.Rows(i).Cells(1).Value Then
+                    coun = +1
+                End If
+
+            Next
+
+            If coun > 0 Then
+                unificador_script.ShowDialog()
+
+            Else
+                MsgBox("Debe de elegir aun que sea un archivo para poder crear un Srcip Unificado", vbCritical, "Atención")
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub grip_nombre_archi_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grip_nombre_archi.CellClick
+        Dim fila_archivo As Integer = 0
+        Dim lo_check As Boolean
+
+        Dim grid As DataGridView = CType(sender, DataGridView)
+        Dim columnName As String = grip_nombre_archi.Columns(e.ColumnIndex).Name
+
+        Try
+
+            If grip_nombre_archi.CurrentRow Is Nothing Then
+                btnbajar.Visible = False
+                btnsubir.Visible = False
+                btneditar.Visible = False
+                btnabrirarchivo.Visible = False
+                btnunificar.Visible = False
+            Else
+
+                fila_archivo = grip_nombre_archi.SelectedCells.Item(0).RowIndex
+
+                If columnName = "selecionar" Then
+
+                    For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
+
+                        If grip_nombre_archi.Rows(i).Selected = True Then
+
+                            lo_check = grip_nombre_archi.Rows(fila_archivo).Cells(1).Value
+
+                            If lo_check = False Then
+
+                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = True
+
+                            Else
+                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = False
+
+                            End If
+                        Else
+                        End If
+                    Next
+
+                    'End If
+
+                End If
+
+                btnbajar.Visible = True
+                btnsubir.Visible = True
+                btneditar.Visible = True
+                btnabrirarchivo.Visible = True
+                btnunificar.Visible = True
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 #End Region
 
 End Class

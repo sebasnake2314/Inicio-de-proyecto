@@ -69,13 +69,19 @@
     <ManifestKeyFile>Sql_instaler_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>sql_instaler.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ns.biz">
@@ -153,6 +159,12 @@
     <Compile Include="preferencias.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="unificador_script.Designer.vb">
+      <DependentUpon>unificador_script.vb</DependentUpon>
+    </Compile>
+    <Compile Include="unificador_script.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Administrador_de_ambientes.resx">
@@ -173,8 +185,12 @@
     <EmbeddedResource Include="preferencias.resx">
       <DependentUpon>preferencias.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="unificador_script.resx">
+      <DependentUpon>unificador_script.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
