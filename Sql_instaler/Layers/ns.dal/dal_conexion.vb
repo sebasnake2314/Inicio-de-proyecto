@@ -4,6 +4,7 @@ Imports System.Data.SqlDbType
 Imports Sybase.Data.AseClient.AseDbType
 Imports ns.dal
 Imports System.Data
+Imports ns.ent
 Public Class dal_Conexion
 
 #Region " Variables "
@@ -448,6 +449,107 @@ Public Class dal_Conexion
             Throw ex
         End Try
     End Sub
+
+    Public Sub f_probar_conexion(ByVal p_cadena_conexion As String)
+
+        Try
+            '---------------------------------------
+            'Debug
+            'If ns.utl.utl_Singleton.Instancia.is_Modo = "DEBUG" Then
+            '    ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "")
+            'End If
+            '---------------------------------------
+            If lb_mantener_conexion = False Then
+                ib_dbConnection = New AseConnection
+                ib_dbConnection.ConnectionString = p_cadena_conexion
+                ib_dbConnection.Open()
+            End If
+            If lb_mantener_conexion = True Then
+                If Not (ib_dbConnection.State = ConnectionState.Open) Then
+                    ib_dbConnection = New AseConnection
+                    ib_dbConnection.ConnectionString = is_ConnectionString
+                    ib_dbConnection.Open()
+                End If
+            End If
+
+
+
+        Catch ex As Exception
+            'ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw ex
+        End Try
+
+
+    End Sub
+
+
+    Public Function f_Ejecutar_sql(ByVal p_SQL As String, ByVal p_cadena_conexion As String) As DataTable
+
+        Dim lo_Cmd As New AseCommand
+        Dim lo_DT As New Data.DataTable
+        Dim lo_DA As New AseDataAdapter
+        Try
+            '---------------------------------------
+            'Debug
+            'If ns.utl.utl_Singleton.Instancia.is_Modo = "DEBUG" Then
+            '    ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "SQL: " & p_SQL)
+            'End If
+            '---------------------------------------
+
+            f_Abrir_sql(p_cadena_conexion)
+            lo_Cmd.Connection = ib_dbConnection
+            lo_Cmd.CommandText = p_SQL
+            lo_Cmd.CommandType = CommandType.Text
+
+            'Se llena el datatable
+            lo_DA.SelectCommand = lo_Cmd
+            lo_DA.Fill(lo_DT)
+
+        Catch sqlEx As AseException
+            'Controlo algun error de Sql
+            'ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, sqlEx.Message)
+            Throw sqlEx
+        Catch ex As Exception
+            'ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw ex
+        Finally
+            'Si no está cerrada, Cierro la conexión
+            If (ib_dbConnection.State = ConnectionState.Open) Then f_Cerrar()
+        End Try
+
+        Return lo_DT
+    End Function
+
+    Private Sub f_Abrir_sql(ByVal p_cadena_conex As String)
+
+        Try
+            '---------------------------------------
+            'Debug
+            'If ns.utl.utl_Singleton.Instancia.is_Modo = "DEBUG" Then
+            '    ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "")
+            'End If
+            '---------------------------------------
+            If lb_mantener_conexion = False Then
+                ib_dbConnection = New AseConnection
+                ib_dbConnection.ConnectionString = p_cadena_conex
+                ib_dbConnection.Open()
+            End If
+            If lb_mantener_conexion = True Then
+                If Not (ib_dbConnection.State = ConnectionState.Open) Then
+                    ib_dbConnection = New AseConnection
+                    ib_dbConnection.ConnectionString = is_ConnectionString
+                    ib_dbConnection.Open()
+                End If
+            End If
+
+
+
+        Catch ex As Exception
+            'ns.utl.utl_Log.f_GuardarLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw ex
+        End Try
+    End Sub
+
 
 #End Region
 

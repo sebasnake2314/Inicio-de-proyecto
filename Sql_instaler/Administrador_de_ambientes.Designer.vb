@@ -22,11 +22,10 @@ Partial Class Administrador_de_ambientes
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Administrador_de_ambientes))
         Me.Label2 = New System.Windows.Forms.Label()
         Me.titlebar = New System.Windows.Forms.Panel()
-        Me.btnmini = New System.Windows.Forms.PictureBox()
-        Me.btnclose = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Checkencrip = New System.Windows.Forms.CheckBox()
         Me.txtpassword = New System.Windows.Forms.TextBox()
@@ -39,15 +38,22 @@ Partial Class Administrador_de_ambientes
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtnombre = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnsave = New System.Windows.Forms.PictureBox()
+        Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.btntest = New System.Windows.Forms.PictureBox()
         Me.btncancelar = New System.Windows.Forms.PictureBox()
+        Me.btnsave = New System.Windows.Forms.PictureBox()
+        Me.btnmini = New System.Windows.Forms.PictureBox()
+        Me.btnclose = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.titlebar.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.btntest, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnsave, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        CType(Me.btnsave, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label2
@@ -74,41 +80,10 @@ Partial Class Administrador_de_ambientes
         Me.titlebar.Size = New System.Drawing.Size(366, 47)
         Me.titlebar.TabIndex = 2
         '
-        'btnmini
-        '
-        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
-        Me.btnmini.Location = New System.Drawing.Point(290, 9)
-        Me.btnmini.Name = "btnmini"
-        Me.btnmini.Size = New System.Drawing.Size(33, 31)
-        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnmini.TabIndex = 6
-        Me.btnmini.TabStop = False
-        '
-        'btnclose
-        '
-        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
-        Me.btnclose.Location = New System.Drawing.Point(329, 9)
-        Me.btnclose.Name = "btnclose"
-        Me.btnclose.Size = New System.Drawing.Size(33, 31)
-        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnclose.TabIndex = 5
-        Me.btnclose.TabStop = False
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
-        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel1.Controls.Add(Me.btntest)
         Me.Panel1.Controls.Add(Me.btncancelar)
         Me.Panel1.Controls.Add(Me.btnsave)
         Me.Panel1.Controls.Add(Me.Checkencrip)
@@ -243,34 +218,88 @@ Partial Class Administrador_de_ambientes
         Me.Label1.TabIndex = 30
         Me.Label1.Text = "Nombre:"
         '
-        'btnsave
+        'NotifyIcon1
         '
-        Me.btnsave.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnsave.Image = Global.Sql_instaler.My.Resources.Resources.guardar
-        Me.btnsave.Location = New System.Drawing.Point(269, 153)
-        Me.btnsave.Name = "btnsave"
-        Me.btnsave.Size = New System.Drawing.Size(33, 31)
-        Me.btnsave.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnsave.TabIndex = 41
-        Me.btnsave.TabStop = False
+        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
+        Me.NotifyIcon1.Visible = True
+        '
+        'btntest
+        '
+        Me.btntest.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btntest.Image = Global.Sql_instaler.My.Resources.Resources.testconect
+        Me.btntest.Location = New System.Drawing.Point(236, 154)
+        Me.btntest.Name = "btntest"
+        Me.btntest.Size = New System.Drawing.Size(33, 31)
+        Me.btntest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btntest.TabIndex = 43
+        Me.btntest.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btntest, "Test de conexión")
         '
         'btncancelar
         '
         Me.btncancelar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btncancelar.Image = Global.Sql_instaler.My.Resources.Resources.cancelar
-        Me.btncancelar.Location = New System.Drawing.Point(308, 153)
+        Me.btncancelar.Location = New System.Drawing.Point(314, 153)
         Me.btncancelar.Name = "btncancelar"
         Me.btncancelar.Size = New System.Drawing.Size(33, 31)
         Me.btncancelar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.btncancelar.TabIndex = 42
         Me.btncancelar.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btncancelar, "Cancelar")
+        '
+        'btnsave
+        '
+        Me.btnsave.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnsave.Enabled = False
+        Me.btnsave.Image = Global.Sql_instaler.My.Resources.Resources.not_save
+        Me.btnsave.Location = New System.Drawing.Point(275, 153)
+        Me.btnsave.Name = "btnsave"
+        Me.btnsave.Size = New System.Drawing.Size(33, 31)
+        Me.btnsave.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnsave.TabIndex = 41
+        Me.btnsave.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btnsave, "Guardar")
+        '
+        'btnmini
+        '
+        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
+        Me.btnmini.Location = New System.Drawing.Point(290, 9)
+        Me.btnmini.Name = "btnmini"
+        Me.btnmini.Size = New System.Drawing.Size(33, 31)
+        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnmini.TabIndex = 6
+        Me.btnmini.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btnmini, "Minimizar")
+        '
+        'btnclose
+        '
+        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
+        Me.btnclose.Location = New System.Drawing.Point(329, 9)
+        Me.btnclose.Name = "btnclose"
+        Me.btnclose.Size = New System.Drawing.Size(33, 31)
+        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnclose.TabIndex = 5
+        Me.btnclose.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btnclose, "Cerrar")
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
+        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
         '
         'Administrador_de_ambientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(366, 239)
+        Me.ClientSize = New System.Drawing.Size(366, 243)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.titlebar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -279,13 +308,14 @@ Partial Class Administrador_de_ambientes
         Me.Text = "Administrador_de_ambientes"
         Me.titlebar.ResumeLayout(False)
         Me.titlebar.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.btntest, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnsave, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        CType(Me.btnsave, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -309,4 +339,7 @@ Partial Class Administrador_de_ambientes
     Friend WithEvents Label1 As Label
     Friend WithEvents btnsave As PictureBox
     Friend WithEvents btncancelar As PictureBox
+    Friend WithEvents btntest As PictureBox
+    Friend WithEvents NotifyIcon1 As NotifyIcon
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

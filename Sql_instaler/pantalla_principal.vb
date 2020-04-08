@@ -30,6 +30,8 @@ Public Class pantalla_principal_sql
         Dim Folder As New FolderBrowserDialog
         Dim lista_archivos_sql As New List(Of String)
         Dim cantidad_archivos_sql As Integer = 0
+        Dim lo_biz As New biz_preferencias
+        Dim lo_ret As New ent_preferencias
 
         Try
 
@@ -65,14 +67,37 @@ Public Class pantalla_principal_sql
                     btnabrirarchivo.Visible = False
                     btnactualizar.Visible = False
                     btnunificar.Visible = False
+                    lbamb.Visible = False
+                    Comboambientes.Visible = False
+                    btnejecutarsql.Visible = False
                 Else
+
                     lbcantarch.Text = lista_archivos_sql.Count
                     'Agrego lista de archivos a ListView
                     For Each items As String In lista_archivos_sql
-
                         grip_nombre_archi.Rows.Add(items)
 
                     Next
+
+                    Try
+
+                        lo_ret = lo_biz.f_traer_ambiente()
+
+                        Comboambientes.Items.Clear()
+
+
+                        For i As Integer = 0 To lo_ret.p_is_ambiente_o.Count - 1
+                            Comboambientes.Items.Add(lo_ret.p_is_ambiente_o.Item(i))
+                        Next
+
+
+                        Comboambientes.SelectedItem = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", Nothing)
+
+                    Catch ex As Exception
+
+                    End Try
+
+
 
                     grip_nombre_archi.Visible = True
                     Label3.Visible = True
@@ -84,6 +109,9 @@ Public Class pantalla_principal_sql
                     btnabrirarchivo.Visible = True
                     btnactualizar.Visible = True
                     btnunificar.Visible = True
+                    lbamb.Visible = True
+                    Comboambientes.Visible = True
+                    btnejecutarsql.Visible = True
                 End If
 
             Else
@@ -101,6 +129,9 @@ Public Class pantalla_principal_sql
                 btnabrirarchivo.Visible = False
                 btnactualizar.Visible = False
                 btnunificar.Visible = False
+                lbamb.Visible = False
+                Comboambientes.Visible = False
+                btnejecutarsql.Visible = False
             End If
 
         Catch ex As Exception
@@ -139,7 +170,7 @@ Public Class pantalla_principal_sql
         Dim encabezado As New encabezado
 
         Try
-
+            'Encabezado y separado
             If IsNothing(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "encabezado_SQL_Instaler", Nothing)) Or My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "encabezado_SQL_Instaler", Nothing) = "" Then
                 Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "encabezado_SQL_Instaler", encabezado.crear_encabezado)
             End If
@@ -149,6 +180,7 @@ Public Class pantalla_principal_sql
             End If
 
             creacionbd()
+
         Catch ex As Exception
 
         End Try
@@ -486,6 +518,159 @@ Public Class pantalla_principal_sql
 
     End Sub
 
+    Private Sub PreferenciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferenciasToolStripMenuItem.Click
+        Dim lo_biz As New biz_preferencias
+        Dim lo_ret As New ent_preferencias
+
+        Try
+            preferencias.ShowDialog()
+
+            lo_ret = lo_biz.f_traer_ambiente()
+
+            Comboambientes.Items.Clear()
+
+
+            For i As Integer = 0 To lo_ret.p_is_ambiente_o.Count - 1
+                Comboambientes.Items.Add(lo_ret.p_is_ambiente_o.Item(i))
+            Next
+
+
+            Comboambientes.SelectedItem = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", Nothing)
+
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub btnunificar_Click(sender As Object, e As EventArgs) Handles btnunificar.Click
+
+        Dim coun As Integer = 0
+        Try
+
+            For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
+
+                If grip_nombre_archi.Rows(i).Cells(1).Value Then
+                    coun = +1
+                End If
+
+            Next
+
+            If coun > 0 Then
+                ' unificador_script.ShowDialog()
+
+                Dim Form_unificador As New unificador_script
+                Form_unificador.ShowDialog()
+                Form_unificador.Dispose()
+
+            Else
+                MsgBox("Debe de elegir aun que sea un archivo para poder crear un Srcip Unificado", vbCritical, "Atención")
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub grip_nombre_archi_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grip_nombre_archi.CellClick
+        Dim fila_archivo As Integer = 0
+        Dim lo_check As Boolean
+        Dim lo_biz As New biz_ejecucion
+        Dim lo_ret_ejecucion As New ent_retorno
+        Dim nombre_archivo As String = ""
+        Dim grid As DataGridView = CType(sender, DataGridView)
+        Dim columnName As String = grip_nombre_archi.Columns(e.ColumnIndex).Name
+
+        Try
+
+            If grip_nombre_archi.CurrentRow Is Nothing Then
+                btnbajar.Visible = False
+                btnsubir.Visible = False
+                btneditar.Visible = False
+                btnabrirarchivo.Visible = False
+                btnunificar.Visible = False
+            Else
+
+                fila_archivo = grip_nombre_archi.SelectedCells.Item(0).RowIndex
+
+                If columnName = "selecionar" Then
+
+                    For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
+
+                        If grip_nombre_archi.Rows(i).Selected = True Then
+
+                            lo_check = grip_nombre_archi.Rows(fila_archivo).Cells(1).Value
+
+                            If lo_check = False Then
+
+                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = True
+
+                            Else
+                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = False
+
+                            End If
+                        Else
+                        End If
+                    Next
+
+                ElseIf columnName = "ejecucion_sql" Then
+
+                    nombre_archivo = grip_nombre_archi.Rows(fila_archivo).Cells(0).Value
+
+                    lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+
+                    If lo_ret_ejecucion.p_cod_error_i = 0 Then
+                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
+                    Else
+                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
+                    End If
+
+
+                End If
+
+                btnbajar.Visible = True
+                btnsubir.Visible = True
+                btneditar.Visible = True
+                btnabrirarchivo.Visible = True
+                btnunificar.Visible = True
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnejecutarsql_Click(sender As Object, e As EventArgs) Handles btnejecutarsql.Click
+        Dim nombre_archivo As String = ""
+        Dim lo_biz As New biz_ejecucion
+        Dim lo_ret_ejecucion As New ent_retorno
+        Try
+
+            For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
+
+                If grip_nombre_archi.Rows(i).Cells(1).Value Then
+
+                    nombre_archivo = grip_nombre_archi.Rows(i).Cells(0).Value
+
+                    lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+
+                    If lo_ret_ejecucion.p_cod_error_i = 0 Then
+                        grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.sql_exito_pequeno
+                    Else
+                        grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.sql_error_pequeno
+                    End If
+
+                End If
+
+            Next
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+
 #End Region
 
 #Region "Tooltip botones"
@@ -530,98 +715,11 @@ Public Class pantalla_principal_sql
         mensajetooltip(ToolTip, btnmini, "Minimizar")
     End Sub
     Private Sub btnunificar_MouseEnter(sender As Object, e As EventArgs) Handles btnunificar.MouseEnter
-        mensajetooltip(ToolTip, btnmini, "Crear script Unificado")
+        mensajetooltip(ToolTip, btnunificar, "Crear script Unificado")
     End Sub
-
-    Private Sub PreferenciasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferenciasToolStripMenuItem.Click
-        Try
-            preferencias.ShowDialog()
-        Catch ex As Exception
-            Throw ex
-        End Try
+    Private Sub btnejecutarsql_MouseEnter(sender As Object, e As EventArgs) Handles btnejecutarsql.MouseEnter
+        mensajetooltip(ToolTip, btnejecutarsql, "Ejecutar SQL selecionados")
     End Sub
-
-    Private Sub btnunificar_Click(sender As Object, e As EventArgs) Handles btnunificar.Click
-
-        Dim coun As Integer = 0
-        Try
-
-            For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
-
-                If grip_nombre_archi.Rows(i).Cells(1).Value Then
-                    coun = +1
-                End If
-
-            Next
-
-            If coun > 0 Then
-                unificador_script.ShowDialog()
-
-            Else
-                MsgBox("Debe de elegir aun que sea un archivo para poder crear un Srcip Unificado", vbCritical, "Atención")
-            End If
-
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
-
-    Private Sub grip_nombre_archi_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles grip_nombre_archi.CellClick
-        Dim fila_archivo As Integer = 0
-        Dim lo_check As Boolean
-
-        Dim grid As DataGridView = CType(sender, DataGridView)
-        Dim columnName As String = grip_nombre_archi.Columns(e.ColumnIndex).Name
-
-        Try
-
-            If grip_nombre_archi.CurrentRow Is Nothing Then
-                btnbajar.Visible = False
-                btnsubir.Visible = False
-                btneditar.Visible = False
-                btnabrirarchivo.Visible = False
-                btnunificar.Visible = False
-            Else
-
-                fila_archivo = grip_nombre_archi.SelectedCells.Item(0).RowIndex
-
-                If columnName = "selecionar" Then
-
-                    For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
-
-                        If grip_nombre_archi.Rows(i).Selected = True Then
-
-                            lo_check = grip_nombre_archi.Rows(fila_archivo).Cells(1).Value
-
-                            If lo_check = False Then
-
-                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = True
-
-                            Else
-                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = False
-
-                            End If
-                        Else
-                        End If
-                    Next
-
-                    'End If
-
-                End If
-
-                btnbajar.Visible = True
-                btnsubir.Visible = True
-                btneditar.Visible = True
-                btnabrirarchivo.Visible = True
-                btnunificar.Visible = True
-            End If
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
 #End Region
 
 End Class

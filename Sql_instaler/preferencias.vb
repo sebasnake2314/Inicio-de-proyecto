@@ -27,8 +27,16 @@ Public Class preferencias
     End Sub
 
     Private Sub btnsave_Click(sender As Object, e As EventArgs) Handles btnsave.Click
+        Dim lo_amb As String = ""
         Try
-            Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", Comboambientes.SelectedItem.ToString)
+
+            If IsNothing(Comboambientes.SelectedItem) Then
+                lo_amb = ""
+            Else
+                lo_amb = Comboambientes.SelectedItem.ToString
+            End If
+
+            Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", lo_amb)
             Me.Close()
         Catch ex As Exception
 
@@ -37,7 +45,12 @@ Public Class preferencias
 
     Private Sub btnagregaramb_Click(sender As Object, e As EventArgs) Handles btnagregaramb.Click
         Try
-            Administrador_de_ambientes.ShowDialog()
+            'Administrador_de_ambientes.ShowDialog()
+
+            Dim Form_administrador_amb As New Administrador_de_ambientes
+            Form_administrador_amb.ShowDialog()
+            Form_administrador_amb.Dispose()
+
         Catch ex As Exception
 
         End Try
@@ -86,24 +99,30 @@ Public Class preferencias
 
         Try
 
-            If MsgBox("Se realizo al eliminicación del ambientes con éxito", vbInformation + vbYesNo, "Éxito") = DialogResult.Yes Then
+            If MsgBox("¿Esta seguro de eliminar este ambiente?", vbInformation + vbYesNo, "Atención") = DialogResult.Yes Then
                 lo_ret = lo_biz.f_eliminar_ambiente(Comboambientes.SelectedItem.ToString)
 
                 If lo_ret >= 0 Then
 
                     MsgBox("Se realizo al eliminicación del ambientes con éxito", vbInformation, "Éxito")
                     Dim amb As New ent_preferencias
-                    amb = lo_biz.f_traer_ambiente()
 
                     Comboambientes.Items.Clear()
+
+                    amb = lo_biz.f_traer_ambiente()
 
                     For i As Integer = 0 To amb.p_is_ambiente_o.Count - 1
                         Comboambientes.Items.Add(amb.p_is_ambiente_o.Item(i))
                     Next
 
                     Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", "")
+                    Comboambientes.SelectedItem = Nothing
 
-                    Comboambientes.SelectedIndex = 1
+                    If Comboambientes.Items.Count > 0 Then
+                        Comboambientes.SelectedIndex = 0
+                    Else
+                        Comboambientes.SelectedItem = Nothing
+                    End If
 
                 Else
                     MsgBox("Ocurrio un problema al eleminiar el ambiente", vbCritical, "Ocurrio un problema")

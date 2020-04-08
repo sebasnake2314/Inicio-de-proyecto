@@ -183,6 +183,36 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property ejecutar_consulta() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ejecutar_consulta", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property exec_sql() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("exec_sql", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property exec_sql_pequeno() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("exec_sql_pequeno", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property guardar() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("guardar", resourceCulture)
@@ -206,6 +236,16 @@ Namespace My.Resources
         Friend ReadOnly Property mirar_archivo() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("mirar_archivo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property not_save() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("not_save", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -243,6 +283,46 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property sql_error() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sql_error", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property sql_error_pequeno() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sql_error_pequeno", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property sql_exito() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sql_exito", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property sql_exito_pequeno() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sql_exito_pequeno", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property sql_instaler() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sql_instaler", resourceCulture)
@@ -266,6 +346,16 @@ Namespace My.Resources
         Friend ReadOnly Property subir() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("subir", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property testconect() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("testconect", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

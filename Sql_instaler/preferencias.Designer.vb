@@ -32,10 +32,10 @@ Partial Class preferencias
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btncancelar = New System.Windows.Forms.PictureBox()
         Me.btnsave = New System.Windows.Forms.PictureBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btneditaramb = New System.Windows.Forms.PictureBox()
         Me.btndropamb = New System.Windows.Forms.PictureBox()
         Me.btnagregaramb = New System.Windows.Forms.PictureBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Comboambientes = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.titlebar.SuspendLayout()
@@ -44,10 +44,10 @@ Partial Class preferencias
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnsave, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
         CType(Me.btneditaramb, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btndropamb, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnagregaramb, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -130,21 +130,6 @@ Partial Class preferencias
         Me.btnsave.TabStop = False
         Me.ToolTip1.SetToolTip(Me.btnsave, "Guardar cambios")
         '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.Panel1.Controls.Add(Me.btncancelar)
-        Me.Panel1.Controls.Add(Me.btnsave)
-        Me.Panel1.Controls.Add(Me.btneditaramb)
-        Me.Panel1.Controls.Add(Me.btndropamb)
-        Me.Panel1.Controls.Add(Me.btnagregaramb)
-        Me.Panel1.Controls.Add(Me.Comboambientes)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Location = New System.Drawing.Point(8, 53)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(574, 121)
-        Me.Panel1.TabIndex = 2
-        '
         'btneditaramb
         '
         Me.btneditaramb.Cursor = System.Windows.Forms.Cursors.Hand
@@ -183,8 +168,24 @@ Partial Class preferencias
         Me.btnagregaramb.TabStop = False
         Me.ToolTip1.SetToolTip(Me.btnagregaramb, "Agregar nuevo ambiente")
         '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel1.Controls.Add(Me.btncancelar)
+        Me.Panel1.Controls.Add(Me.btnsave)
+        Me.Panel1.Controls.Add(Me.btneditaramb)
+        Me.Panel1.Controls.Add(Me.btndropamb)
+        Me.Panel1.Controls.Add(Me.btnagregaramb)
+        Me.Panel1.Controls.Add(Me.Comboambientes)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Location = New System.Drawing.Point(8, 53)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(574, 121)
+        Me.Panel1.TabIndex = 2
+        '
         'Comboambientes
         '
+        Me.Comboambientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Comboambientes.FormattingEnabled = True
         Me.Comboambientes.Location = New System.Drawing.Point(176, 15)
         Me.Comboambientes.Name = "Comboambientes"
@@ -222,11 +223,11 @@ Partial Class preferencias
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnsave, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         CType(Me.btneditaramb, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btndropamb, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnagregaramb, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

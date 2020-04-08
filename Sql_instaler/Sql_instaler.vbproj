@@ -84,9 +84,6 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ns.biz">
-      <HintPath>Layers\ns.biz\bin\Debug\ns.biz.dll</HintPath>
-    </Reference>
     <Reference Include="ns.ent">
       <HintPath>Layers\ns.ent\bin\Debug\ns.ent.dll</HintPath>
     </Reference>
@@ -259,10 +256,29 @@
     <None Include="Resources\database.png" />
     <None Include="Resources\databaseadd.png" />
     <None Include="Resources\databasedrop.png" />
+    <None Include="Resources\testconect.png" />
+    <None Include="Resources\not_save.png" />
+    <None Include="Resources\ejecutar_consulta.png" />
+    <None Include="Resources\exec_sql.png" />
+    <None Include="Resources\sql_error.png" />
+    <None Include="Resources\sql_exito.png" />
+    <None Include="Resources\exec_sql_pequeno.png" />
+    <None Include="Resources\sql_error_pequeno.png" />
+    <None Include="Resources\sql_exito_pequeno.png" />
     <Content Include="sql_instaler.ico" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Layers\ns.biz\ns.biz.vbproj">
+      <Project>{584ad65c-7b03-48a4-8774-3f9862719aaa}</Project>
+      <Name>ns.biz</Name>
+    </ProjectReference>
+    <ProjectReference Include="Layers\ns.utl\ns.utl.vbproj">
+      <Project>{c6a3fce2-c04e-4536-8c4d-cf91bbf99215}</Project>
+      <Name>ns.utl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -48,9 +48,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Sybase.AdoNet4.AseClient, Version=4.157.104.0, Culture=neutral, PublicKeyToken=95d94fac46c88e1e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Sybase.AdoNet4.AseClient.dll</HintPath>
+    <Reference Include="Sybase.AdoNet4.AseClient">
+      <HintPath>..\..\Sybase.AdoNet4.AseClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -117,6 +116,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ns.ent\ns.ent.vbproj">
+      <Project>{372001f2-c595-4ba9-91a7-fa07e50940e3}</Project>
+      <Name>ns.ent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ns.utl\ns.utl.vbproj">
       <Project>{c6a3fce2-c04e-4536-8c4d-cf91bbf99215}</Project>
       <Name>ns.utl</Name>

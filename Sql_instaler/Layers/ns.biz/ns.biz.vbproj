@@ -76,7 +76,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="biz_conexion.vb" />
     <Compile Include="biz_Config.vb" />
+    <Compile Include="biz_ejecucion.vb" />
     <Compile Include="biz_Impersonate.vb" />
     <Compile Include="biz_init.vb" />
     <Compile Include="biz_preferencias.vb" />
