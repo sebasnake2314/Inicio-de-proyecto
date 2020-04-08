@@ -86,28 +86,29 @@ Public Class preferencias
 
         Try
 
-            lo_ret = lo_biz.f_eliminar_ambiente(Comboambientes.SelectedItem.ToString)
+            If MsgBox("Se realizo al eliminicación del ambientes con éxito", vbInformation + vbYesNo, "Éxito") = DialogResult.Yes Then
+                lo_ret = lo_biz.f_eliminar_ambiente(Comboambientes.SelectedItem.ToString)
 
+                If lo_ret >= 0 Then
 
-            If lo_ret >= 0 Then
-                MsgBox("Se realizo al eliminicación del ambientes con éxito", vbInformation, "Éxito")
-                Dim amb As New ent_preferencias
-                amb = lo_biz.f_traer_ambiente()
+                    MsgBox("Se realizo al eliminicación del ambientes con éxito", vbInformation, "Éxito")
+                    Dim amb As New ent_preferencias
+                    amb = lo_biz.f_traer_ambiente()
 
-                Comboambientes.Items.Clear()
+                    Comboambientes.Items.Clear()
 
-                For i As Integer = 0 To amb.p_is_ambiente_o.Count - 1
-                    Comboambientes.Items.Add(amb.p_is_ambiente_o.Item(i))
-                Next
+                    For i As Integer = 0 To amb.p_is_ambiente_o.Count - 1
+                        Comboambientes.Items.Add(amb.p_is_ambiente_o.Item(i))
+                    Next
 
-                Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", "")
+                    Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", "")
 
-                Comboambientes.SelectedIndex = 1
+                    Comboambientes.SelectedIndex = 1
 
-            Else
-                MsgBox("Ocurrio un problema al eleminiar el ambiente", vbCritical, "Ocurrio un problema")
+                Else
+                    MsgBox("Ocurrio un problema al eleminiar el ambiente", vbCritical, "Ocurrio un problema")
+                End If
             End If
-
 
         Catch ex As Exception
 

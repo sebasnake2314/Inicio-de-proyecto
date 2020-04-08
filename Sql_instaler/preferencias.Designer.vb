@@ -110,7 +110,7 @@ Partial Class preferencias
         '
         Me.btncancelar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btncancelar.Image = Global.Sql_instaler.My.Resources.Resources.cancelar
-        Me.btncancelar.Location = New System.Drawing.Point(531, 63)
+        Me.btncancelar.Location = New System.Drawing.Point(531, 81)
         Me.btncancelar.Name = "btncancelar"
         Me.btncancelar.Size = New System.Drawing.Size(33, 31)
         Me.btncancelar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -122,7 +122,7 @@ Partial Class preferencias
         '
         Me.btnsave.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnsave.Image = Global.Sql_instaler.My.Resources.Resources.guardar
-        Me.btnsave.Location = New System.Drawing.Point(492, 63)
+        Me.btnsave.Location = New System.Drawing.Point(492, 81)
         Me.btnsave.Name = "btnsave"
         Me.btnsave.Size = New System.Drawing.Size(33, 31)
         Me.btnsave.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -155,6 +155,7 @@ Partial Class preferencias
         Me.btneditaramb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.btneditaramb.TabIndex = 28
         Me.btneditaramb.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btneditaramb, "Modificar ambiente")
         Me.btneditaramb.Visible = False
         '
         'btndropamb
@@ -167,6 +168,7 @@ Partial Class preferencias
         Me.btndropamb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.btndropamb.TabIndex = 27
         Me.btndropamb.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btndropamb, "Eliminar ambiente")
         Me.btndropamb.Visible = False
         '
         'btnagregaramb
@@ -179,6 +181,7 @@ Partial Class preferencias
         Me.btnagregaramb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.btnagregaramb.TabIndex = 26
         Me.btnagregaramb.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btnagregaramb, "Agregar nuevo ambiente")
         '
         'Comboambientes
         '
