@@ -11,7 +11,6 @@ Public Class pantalla_principal_sql
         Try
             Me.Close()
 
-
         Catch ex As Exception
 
         End Try
@@ -90,14 +89,15 @@ Public Class pantalla_principal_sql
                             Comboambientes.Items.Add(lo_ret.p_is_ambiente_o.Item(i))
                         Next
 
+                        If Comboambientes.Items.Count > 0 Then
+                            Comboambientes.Visible = True
+                            Comboambientes.SelectedItem = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", Nothing)
 
-                        Comboambientes.SelectedItem = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "Ambiente_Prefencia_SQL_Instal", Nothing)
+                        End If
 
                     Catch ex As Exception
 
                     End Try
-
-
 
                     grip_nombre_archi.Visible = True
                     Label3.Visible = True
@@ -110,7 +110,7 @@ Public Class pantalla_principal_sql
                     btnactualizar.Visible = True
                     btnunificar.Visible = True
                     lbamb.Visible = True
-                    Comboambientes.Visible = True
+                    'Comboambientes.Visible = True
                     btnejecutarsql.Visible = True
                 End If
 
@@ -545,15 +545,24 @@ Public Class pantalla_principal_sql
     Private Sub btnunificar_Click(sender As Object, e As EventArgs) Handles btnunificar.Click
 
         Dim coun As Integer = 0
+        Dim coun_neg As Integer = 0
         Try
 
             For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
 
-                If grip_nombre_archi.Rows(i).Cells(1).Value Then
+                If grip_nombre_archi.Rows(i).Cells(1).Value = True And grip_nombre_archi.Rows(i).Cells(3).Value = 1 Then
                     coun = +1
+                ElseIf grip_nombre_archi.Rows(i).Cells(1).Value = True And grip_nombre_archi.Rows(i).Cells(3).Value = 0 Or grip_nombre_archi.Rows(i).Cells(1).Value = True And grip_nombre_archi.Rows(i).Cells(3).Value = Nothing Then
+                    coun = +1
+                    coun_neg = +1
                 End If
-
             Next
+
+            If coun_neg > 0 Then
+                If MsgBox("Hay archivos que no ejecutaron o tuvieron problemas de ejecución. ¿Esta seguir en seguir con la operación?", vbYesNo) = vbNo Then
+                    Exit Sub
+                End If
+            End If
 
             If coun > 0 Then
                 ' unificador_script.ShowDialog()
@@ -561,6 +570,8 @@ Public Class pantalla_principal_sql
                 Dim Form_unificador As New unificador_script
                 Form_unificador.ShowDialog()
                 Form_unificador.Dispose()
+
+                btnactualizar_Click(Nothing, Nothing)
 
             Else
                 MsgBox("Debe de elegir aun que sea un archivo para poder crear un Srcip Unificado", vbCritical, "Atención")
@@ -615,16 +626,31 @@ Public Class pantalla_principal_sql
 
                 ElseIf columnName = "ejecucion_sql" Then
 
-                    nombre_archivo = grip_nombre_archi.Rows(fila_archivo).Cells(0).Value
-
-                    lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
-
-                    If lo_ret_ejecucion.p_cod_error_i = 0 Then
-                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
+                    If Comboambientes.Items.Count = 0 Then
+                        MsgBox("Debe selecionar un ambiente para poder ejecutar un SQL", vbInformation, "Atención")
                     Else
-                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
-                    End If
 
+                        nombre_archivo = grip_nombre_archi.Rows(fila_archivo).Cells(0).Value
+
+                        If File.Exists(txtdirectorio.Text & "\" & nombre_archivo & ".sql") Then
+
+                            lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+
+                            If lo_ret_ejecucion.p_cod_error_i = 0 Then
+                                grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
+                                grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 1
+                            Else
+                                grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
+                                grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0
+                                MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
+
+                            End If
+
+                        Else
+                            MsgBox("No se pudo ejecutar el archivo .Sql, no se encuentra en la ruta señalada", vbCritical, "Atención")
+                        End If
+
+                    End If
 
                 End If
 
@@ -644,7 +670,11 @@ Public Class pantalla_principal_sql
         Dim nombre_archivo As String = ""
         Dim lo_biz As New biz_ejecucion
         Dim lo_ret_ejecucion As New ent_retorno
+        Dim ejec As String = ""
         Try
+
+
+
 
             For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
 
@@ -656,8 +686,12 @@ Public Class pantalla_principal_sql
 
                     If lo_ret_ejecucion.p_cod_error_i = 0 Then
                         grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.sql_exito_pequeno
+                        grip_nombre_archi.Rows(i).Cells(3).Value = 1
                     Else
                         grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.sql_error_pequeno
+                        grip_nombre_archi.Rows(i).Cells(3).Value = 0
+                        MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
+                        Exit Sub
                     End If
 
                 End If
@@ -720,6 +754,7 @@ Public Class pantalla_principal_sql
     Private Sub btnejecutarsql_MouseEnter(sender As Object, e As EventArgs) Handles btnejecutarsql.MouseEnter
         mensajetooltip(ToolTip, btnejecutarsql, "Ejecutar SQL selecionados")
     End Sub
+
 #End Region
 
 End Class

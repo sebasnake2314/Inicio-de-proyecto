@@ -272,7 +272,7 @@ Public Class map_preferencias
                     & "'amd_puerto_c'	TEXT, " _
                     & "'amb_usuario_c'	TEXT, " _
                     & "'amb_password_c'	TEXT, " _
-                    & "'amb_pass_encrip_b'	BLOB, " _
+                    & "'amb_pass_encrip_b'	INTEGER, " _
                     & "'amb_tipo_bd_c'	TEXT, " _
                     & "PRIMARY KEY('amb_id_i'));"
 
@@ -356,12 +356,12 @@ Public Class map_preferencias
         Try
             SQLiteCon.Open()
             lo_ret.p_cod_error_i = 1
-            lo_ret.p_desc_error_c = "Conexión con Base de datos con éxito"
+            lo_ret.p_desc_error_c = "Conexión con Base local de datos con éxito"
         Catch ex As Exception
             SQLiteCon.Dispose()
             SQLiteCon = Nothing
             lo_ret.p_cod_error_i = 0
-            lo_ret.p_desc_error_c = "Problemas con Conexión a Base de datos"
+            lo_ret.p_desc_error_c = "Problemas con Conexión a Base local de datos"
         End Try
         Return lo_ret
     End Function

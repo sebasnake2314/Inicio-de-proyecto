@@ -30,6 +30,7 @@ Partial Class unificador_script
         Me.btnmini = New System.Windows.Forms.PictureBox()
         Me.btnclose = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btndirectorio = New System.Windows.Forms.PictureBox()
         Me.btncancelar = New System.Windows.Forms.PictureBox()
         Me.btnsave = New System.Windows.Forms.PictureBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -47,15 +48,14 @@ Partial Class unificador_script
         Me.txtnropaquete = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btndirectorio = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.titlebar.SuspendLayout()
         CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.btndirectorio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnsave, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btndirectorio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label2
@@ -89,7 +89,7 @@ Partial Class unificador_script
         Me.titlebar.Dock = System.Windows.Forms.DockStyle.Top
         Me.titlebar.Location = New System.Drawing.Point(0, 0)
         Me.titlebar.Name = "titlebar"
-        Me.titlebar.Size = New System.Drawing.Size(447, 47)
+        Me.titlebar.Size = New System.Drawing.Size(442, 47)
         Me.titlebar.TabIndex = 0
         '
         'btnmini
@@ -136,10 +136,22 @@ Partial Class unificador_script
         Me.Panel1.Controls.Add(Me.combotipopack)
         Me.Panel1.Controls.Add(Me.txtnropaquete)
         Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Location = New System.Drawing.Point(8, 46)
+        Me.Panel1.Location = New System.Drawing.Point(5, 46)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(431, 246)
         Me.Panel1.TabIndex = 0
+        '
+        'btndirectorio
+        '
+        Me.btndirectorio.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btndirectorio.Image = Global.Sql_instaler.My.Resources.Resources.select_folder
+        Me.btndirectorio.Location = New System.Drawing.Point(389, 88)
+        Me.btndirectorio.Name = "btndirectorio"
+        Me.btndirectorio.Size = New System.Drawing.Size(22, 19)
+        Me.btndirectorio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btndirectorio.TabIndex = 47
+        Me.btndirectorio.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.btndirectorio, "Selecionar ruta para creación de archivo sql")
         '
         'btncancelar
         '
@@ -284,6 +296,7 @@ Partial Class unificador_script
         'combotipopack
         '
         Me.combotipopack.BackColor = System.Drawing.Color.White
+        Me.combotipopack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.combotipopack.Font = New System.Drawing.Font("Century Gothic", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.combotipopack.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.combotipopack.FormattingEnabled = True
@@ -314,24 +327,12 @@ Partial Class unificador_script
         Me.Label3.TabIndex = 30
         Me.Label3.Text = "Nro. Paquete:"
         '
-        'btndirectorio
-        '
-        Me.btndirectorio.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btndirectorio.Image = Global.Sql_instaler.My.Resources.Resources.select_folder
-        Me.btndirectorio.Location = New System.Drawing.Point(389, 88)
-        Me.btndirectorio.Name = "btndirectorio"
-        Me.btndirectorio.Size = New System.Drawing.Size(22, 19)
-        Me.btndirectorio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btndirectorio.TabIndex = 47
-        Me.btndirectorio.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.btndirectorio, "Selecionar ruta para creación de archivo sql")
-        '
         'unificador_script
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(447, 300)
+        Me.ClientSize = New System.Drawing.Size(442, 298)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.titlebar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -346,9 +347,9 @@ Partial Class unificador_script
         CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.btndirectorio, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnsave, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btndirectorio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

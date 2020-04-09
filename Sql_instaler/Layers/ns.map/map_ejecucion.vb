@@ -28,7 +28,7 @@ Public Class map_ejecucion
         Catch ex As Exception
 
             lo_ret.p_cod_error_i = -1
-            lo_ret.p_desc_error_c = "Problemas al ejecutar la consulta"
+            lo_ret.p_desc_error_c = ex.Message
 
         End Try
 

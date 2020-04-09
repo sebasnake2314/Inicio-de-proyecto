@@ -41,8 +41,7 @@ Public Class map_parametros
                 lo_ret.p_puerto_c = dt.Rows(0)("amd_puerto_c")
                 lo_ret.p_usuario_c = dt.Rows(0)("amb_usuario_c")
                 lo_ret.p_password_c = dt.Rows(0)("amb_password_c")
-                lo_ret.p_es_encrip_i = 1
-                'lo_ret.p_es_encrip_i = dt.Rows(0)("amb_pass_encrip_b")
+                lo_ret.p_es_encrip_i = dt.Rows(0)("amb_pass_encrip_b")
 
             End If
 
