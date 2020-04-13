@@ -275,6 +275,8 @@
     <None Include="Resources\exec_sql_pequeno.png" />
     <None Include="Resources\sql_error_pequeno.png" />
     <None Include="Resources\sql_exito_pequeno.png" />
+    <None Include="Resources\cargando_sql.png" />
+    <None Include="Resources\cargando_sql_pequeno.png" />
     <Content Include="sql_instaler.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -396,6 +396,7 @@ Public Class pantalla_principal_sql
                         mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
                     End If
 
+                    NotifyIcon1.Dispose()
 
                 End If
             End If
@@ -634,11 +635,14 @@ Public Class pantalla_principal_sql
 
                         If File.Exists(txtdirectorio.Text & "\" & nombre_archivo & ".sql") Then
 
+                            grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.cargando_sql_pequeno
+
                             lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
 
                             If lo_ret_ejecucion.p_cod_error_i = 0 Then
                                 grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
                                 grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 1
+                                MsgBox("Ejecución sin errores", vbInformation, "Exito")
                             Else
                                 grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
                                 grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0

@@ -127,6 +127,9 @@
   <data name="unificar_scripts" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unificar_scripts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cargando_sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cargando_sql.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="databasedrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\databasedrop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -157,6 +160,9 @@
   <data name="select_all" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\select_all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="sql_error_pequeno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sql_error_pequeno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="actualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\actualizar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -165,6 +171,9 @@
   </data>
   <data name="sql_instaler1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sql_instaler.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sql_exito_pequeno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sql_exito_pequeno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="disconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\disconnect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,10 +214,7 @@
   <data name="mirar_archivo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mirar_archivo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sql_error_pequeno" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sql_error_pequeno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sql_exito_pequeno" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sql_exito_pequeno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cargando_sql_pequeno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cargando_sql_pequeno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

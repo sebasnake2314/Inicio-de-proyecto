@@ -22,8 +22,17 @@ Public Class map_ejecucion
 
             lo_cadena_conexion = "Data Source=" + lo_parametros.p_host_c + ";Port=" + lo_parametros.p_puerto_c + ";User ID=" + lo_parametros.p_usuario_c + ";Password=" + lo_parametros.p_password_c + ";CharSet=cp1252"
 
-            io_Datos.f_Ejecutar_sql(lo_contenido_sql, lo_cadena_conexion)
+            Dim sql_a_ejecución As String = lo_contenido_sql
+            Dim arr2 As String()
+            Dim encabezado_final As String = ""
+            arr2 = Split(sql_a_ejecución, "GO")
+            For j As Integer = 0 To arr2.Length - 1
+                sql_a_ejecución = arr2(j)
 
+
+                io_Datos.f_Ejecutar_sql(sql_a_ejecución, lo_cadena_conexion)
+
+            Next
 
         Catch ex As Exception
 
