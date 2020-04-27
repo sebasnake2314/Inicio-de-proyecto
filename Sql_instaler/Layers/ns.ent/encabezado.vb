@@ -11,7 +11,7 @@
                    & "GO #" _
                    & "/*=====================================================*/ #" _
                    & "INSERT INTO tb_aps_versiones #" _
-                   & "SELECT 'paquete', '{0}' , convert(datetime,'{1}/{2}/{3}') , '{4}' , NULL, NULL) #" _
+                   & "SELECT 'paquete', '{0}' , convert(datetime,'{1}/{2}/{3}') , '{4}' , NULL, NULL #" _
                    & "GO"
 
         Catch ex As Exception
