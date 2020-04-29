@@ -5,6 +5,7 @@ Imports Finisar.SQLite
 Imports ns.biz
 Imports ns.ent
 Imports System.Text
+Imports Microsoft.Win32.Registry
 
 Public Class pantalla_principal_sql
     Dim lo_ret_conex As New ent_retorno
@@ -14,21 +15,21 @@ Public Class pantalla_principal_sql
 
         Try
 
-
             If MsgBox("¿Desea cerrar al aplicación por completo?", vbInformation + vbYesNo, "Cerrando aplicación") = vbNo Then
 
                 MsgBox("La aplicación fue enviada a segundo plano", vbInformation, "Sql Instaler")
-
 
                 'Limpio el contexmenu
                 ContextMenuStrip1.Items.Clear()
                 'Agrego un items mas a contextmenu
                 Dim submenu, salir, abrir As New ToolStripMenuItem()
-                submenu.Text = "Ejecutar"
+                AddHandler abrir.Click, AddressOf lP_subejecutar
+                AddHandler salir.Click, AddressOf lP_subejecutar
                 ' todos.Text = "Todos"
                 'submenu.DropDownItems.Add(todos)
 
                 If lista_subitems.Count > 0 Then
+                    submenu.Text = "Ejecutar"
                     For Each items As String In lista_subitems
                         ' Dim archivos As New ToolStripMenuItem()
                         ' archivos.Text = items
@@ -78,44 +79,83 @@ Public Class pantalla_principal_sql
             Dim fila_archivo As Integer = 0
             texto = sender.ToString
 
-            If sender.ToString <> "Todos" Then
+            Select Case sender.ToString
+                Case "Abrir"
+                    Me.Show()
+                Case "Salir"
+                    Me.Close()
+                Case Else
 
-                'lo_ret_ejecucion = lo_biz.f_ejecutar_sql(sender.ToString, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+                    If File.Exists(txtdirectorio.Text & "\" & texto & ".sql") Then
 
-                If File.Exists(txtdirectorio.Text & "\" & texto & ".sql") Then
+                        For Each r As DataGridViewRow In grip_nombre_archi.Rows
+                            'en cells() coloco la columna que quiero validar si es igual a la condicion
+                            If r.Cells(0).Value = sender.ToString Then
+                                fila_archivo = r.Cells(0).RowIndex
+                                Exit For
+                            End If
+                        Next
 
-                    For Each r As DataGridViewRow In grip_nombre_archi.Rows
-                        'en cells() coloco la columna que quiero validar si es igual a la condicion
-                        If r.Cells(0).Value = sender.ToString Then
-                            fila_archivo = r.Cells(0).RowIndex
-                            Exit For
+                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.cargando_sql_pequeno
+
+                        lo_ret_ejecucion = lo_biz.f_ejecutar_sql(sender.ToString, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+
+                        If lo_ret_ejecucion.p_cod_error_i = 0 Then
+                            grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
+                            grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 1
+                            MsgBox("Ejecución sin errores", vbInformation, "Exito")
+                        Else
+                            grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
+                            grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0
+                            MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
+
                         End If
-                    Next
 
-                    grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.cargando_sql_pequeno
-
-                    lo_ret_ejecucion = lo_biz.f_ejecutar_sql(sender.ToString, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
-
-                    If lo_ret_ejecucion.p_cod_error_i = 0 Then
-                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
-                        grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 1
-                        MsgBox("Ejecución sin errores", vbInformation, "Exito")
                     Else
-                        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
-                        grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0
-                        MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
-
+                        MsgBox("No se pudo ejecutar el archivo .Sql, no se encuentra en la ruta señalada", vbCritical, "Atención")
                     End If
 
-                Else
-                    MsgBox("No se pudo ejecutar el archivo .Sql, no se encuentra en la ruta señalada", vbCritical, "Atención")
-                End If
+            End Select
 
-            End If
+
+            'If sender.ToString <> "Todos" Then
+
+            '    'lo_ret_ejecucion = lo_biz.f_ejecutar_sql(sender.ToString, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+
+            '    If File.Exists(txtdirectorio.Text & "\" & texto & ".sql") Then
+
+            '        For Each r As DataGridViewRow In grip_nombre_archi.Rows
+            '            'en cells() coloco la columna que quiero validar si es igual a la condicion
+            '            If r.Cells(0).Value = sender.ToString Then
+            '                fila_archivo = r.Cells(0).RowIndex
+            '                Exit For
+            '            End If
+            '        Next
+
+            '        grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.cargando_sql_pequeno
+
+            '        lo_ret_ejecucion = lo_biz.f_ejecutar_sql(sender.ToString, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
+
+            '        If lo_ret_ejecucion.p_cod_error_i = 0 Then
+            '            grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
+            '            grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 1
+            '            MsgBox("Ejecución sin errores", vbInformation, "Exito")
+            '        Else
+            '            grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
+            '            grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0
+            '            MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
+
+            '        End If
+
+            '    Else
+            '        MsgBox("No se pudo ejecutar el archivo .Sql, no se encuentra en la ruta señalada", vbCritical, "Atención")
+            '    End If
+
+            'End If
 
 
         Catch ex As Exception
-
+            MsgBox(ex, vbCritical)
         End Try
 
     End Sub
@@ -624,9 +664,6 @@ Public Class pantalla_principal_sql
         Dim ejec As String = ""
         Try
 
-
-
-
             For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
 
                 If grip_nombre_archi.Rows(i).Cells(1).Value Then
@@ -667,58 +704,69 @@ Public Class pantalla_principal_sql
         Dim lo_biz As New biz_preferencias
         Dim lo_ret As New ent_retorno
         Dim count_veri As Integer = 0
+        Dim Directorio As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)
+
         Try
 
             If IsNothing(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)) Or My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing) = "" Then
-                MsgBox("Debe seleccionar la una ubicación para el archivo de almacenamiento de datos", vbInformation)
+                'MsgBox("Debe seleccionar la una ubicación para el archivo de almacenamiento de datos", vbInformation)
                 f_crear_bd_auto()
 
                 lo_ret_conex = lo_biz.f_comprobar_bd()
-                NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
+                NotifyIcon1.ShowBalloonTip(1000, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Info)
                 btn_conex.Image = My.Resources.connect
                 mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
 
             Else
+
+                'En caso de no existir el archivo .db en la ruta del registry se crea una nueva
+                If File.Exists(Directorio & "\db.db") = False Then
+                    f_crear_bd_auto()
+                End If
 
                 'Compruebo existencia de pase de datos en agregado en ruta registry
                 lo_ret_conex = lo_biz.f_comprobar_bd()
 
                 If lo_ret_conex.p_cod_error_i = 0 Then
 
-                    If MsgBox(lo_ret_conex.p_desc_error_c & "No se puede encontrar la base de datos en la ruta actual " & My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing) & ". ¿Desea selecionar de forma manual ubicación de base de datos?", vbInformation + vbYesNo, "Atención") = vbYes Then
-                        f_crear_bd_manual()
-                        count_veri = 1
-                    Else
-                        f_crear_bd_auto()
-                        count_veri = 1
-                    End If
+
+                    NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Error)
+                    btn_conex.Image = My.Resources.disconnect
+                    mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
+
+                    'If MsgBox(lo_ret_conex.p_desc_error_c & "No se puede encontrar la base de datos en la ruta actual " & My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing) & ". ¿Desea selecionar de forma manual ubicación de base de datos?", vbInformation + vbYesNo, "Atención") = vbYes Then
+                    'f_crear_bd_manual()
+                    'count_veri = 1
+                    'Else
+                    'f_crear_bd_auto()
+                    'count_veri = 1
+                    'End If
 
                 Else
 
-                    NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
+                    'NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Info)
                     btn_conex.Image = My.Resources.connect
-                    mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
-
+                    'mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
 
                 End If
 
-                If count_veri = 1 Then
-                    lo_ret_conex = lo_biz.f_comprobar_bd()
-                    If lo_ret_conex.p_cod_error_i = 1 Then
-                        NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
-                        btn_conex.Image = My.Resources.connect
-                        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
+                'If count_veri = 1 Then
+                '    lo_ret_conex = lo_biz.f_comprobar_bd()
+                '    If lo_ret_conex.p_cod_error_i = 1 Then
+                '        NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.None)
+                '        btn_conex.Image = My.Resources.connect
+                '        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
 
-                    Else
-                        NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Error)
-                        btn_conex.Image = My.Resources.disconnect
-                        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
+                '    Else
+                '        NotifyIcon1.ShowBalloonTip(600, "Sql Instaler", lo_ret_conex.p_desc_error_c, ToolTipIcon.Error)
+                '        btn_conex.Image = My.Resources.disconnect
+                '        mensajetooltip(ToolTip, btn_conex, lo_ret_conex.p_desc_error_c)
 
-                    End If
+                '    End If
 
-                    NotifyIcon1.Dispose()
-                    ' NotifyIcon1.Visible = False
-                End If
+                'NotifyIcon1.Dispose()
+                ' NotifyIcon1.Visible = False
+                'End If
             End If
 
         Catch ex As Exception
@@ -802,39 +850,44 @@ Public Class pantalla_principal_sql
         Dim Folder As New FolderBrowserDialog
         Dim path As String = ""
         Dim carpeta As String = ""
-        Folder.SelectedPath = System.IO.Directory.GetCurrentDirectory.ToString()
+        'Folder.SelectedPath = System.IO.Directory.GetCurrentDirectory.ToString()
+
+        Folder.SelectedPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments
+
         Dim seleciono As Integer
         Try
 
-            While seleciono = 0
+            'While seleciono = 0
 
-                If Folder.ShowDialog() = DialogResult.OK Then
+            'If Folder.ShowDialog() = DialogResult.OK Then
 
-                    'Creo carpeta
-                    carpeta = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler"
-                    My.Computer.FileSystem.CreateDirectory(carpeta)
+            'Creo carpeta
+            'carpeta = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler"
+            carpeta = IO.Path.GetDirectoryName(My.Computer.FileSystem.SpecialDirectories.MyDocuments) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler"
 
-                    'Directorio Completo con creación con base de datos
-                    path = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db"
+            My.Computer.FileSystem.CreateDirectory(carpeta)
 
-                    'Creación de archivo de base de datos.
-                    Dim fs As FileStream = File.Create(path)
-                    fs.Close()
+            'Directorio Completo con creación con base de datos
+            path = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath) & "\sql_instaler" & "\db.db"
 
-                    Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", path)
-                    'Inserto tablas y campos en base de datos
-                    crear_tablas()
-                    seleciono = 1
-                Else
+            'Creación de archivo de base de datos.
+            Dim fs As FileStream = File.Create(path)
+            fs.Close()
 
-                    MsgBox("No selecciono ninguna carpeta, Debe seleccionar", vbInformation)
+            Registry.SetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", carpeta)
+            'Inserto tablas y campos en base de datos
+            crear_tablas()
+            seleciono = 1
+            'Else
 
-                End If
+            ' MsgBox("No selecciono ninguna carpeta, Debe seleccionar", vbInformation)
 
-            End While
+            ' End If
+
+            'End While
 
         Catch ex As Exception
-
+            MsgBox(ex, vbCritical)
         End Try
 
     End Sub
@@ -944,42 +997,5 @@ Public Class pantalla_principal_sql
         End Try
 
     End Sub
-
-    'Private Sub ContextMenuStrip1_Click(sender As Object, e As EventArgs) Handles ContextMenuStrip1.Click
-
-    '    Try
-
-    '        Dim text As String = ""
-
-    '        If ContextMenuStrip1.Items.Item(0).Selected = True Then
-    '            Me.Show()
-    '        ElseIf ContextMenuStrip1.Items.Item(2).Selected = True Then
-    '            Me.Close()
-    '        End If
-
-    '        If ContextMenuStrip1.OwnerItem.Text = "Todos" Then
-    '            MsgBox("Aqui")
-    '        End If
-
-    '    Catch ex As Exception
-
-    '    End Try
-
-    'End Sub
-
-    'Private Sub ContextMenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ContextMenuStrip1.ItemClicked
-
-    '    Try
-
-    '        Dim texto As String = ""
-
-    '        texto = e.ClickedItem.Text
-
-
-    '    Catch ex As Exception
-
-    '    End Try
-
-    'End Sub
 
 End Class

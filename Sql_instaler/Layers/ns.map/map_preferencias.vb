@@ -2,7 +2,7 @@
 Imports System.Data.SQLite
 
 Public Class map_preferencias
-    Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
+    Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)) & "\db.db"
     'Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
     Public Function f_traer_ambiente() As ent_preferencias
         Dim lo_ret As New ent_preferencias
@@ -28,7 +28,8 @@ Public Class map_preferencias
                 lo_ret.p_cod_error_i = -1
                 lo_ret.p_desc_error_c = "Problemas al guardar los datos"
                 '  MsgBox(ex.Message)
-                Exit Function
+                'Exit Function
+                Return lo_ret
             End Try
 
             LoadDB("select amb_nombre_c from " & TableName & "", TableDB, SQLiteCon)
@@ -68,7 +69,8 @@ Public Class map_preferencias
                 lo_ret.p_cod_error_i = -1
                 lo_ret.p_desc_error_c = "Problemas al guardar los datos"
                 '  MsgBox(ex.Message)
-                Exit Function
+                'Exit Function
+                Return lo_ret
             End Try
 
             'Directorio
@@ -81,7 +83,6 @@ Public Class map_preferencias
                 lo_ret.p_cod_error_i = -1
                 lo_ret.p_desc_error_c = "Problemas al guardar los datos"
             End Try
-
 
             sql = ""
             sql = String.Format("update tb_preferencias set pre_valor_campo_c = '{0}' where pre_campo_c = 'PREAMBIENTE'", p_id_ambiente_c)
@@ -248,8 +249,8 @@ Public Class map_preferencias
         Dim Sql As String = ""
         Try
 
-            Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
-            Dim SQLiteCon As New SQLiteConnection(DB_Path_c)
+            'Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)) & "\db.db"
+            Dim SQLiteCon As New SQLiteConnection(DB_Path)
 
             Try
                 SQLiteCon.Open()
@@ -309,8 +310,8 @@ Public Class map_preferencias
         Dim Sql As String = ""
         Try
 
-            Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
-            Dim SQLiteCon As New SQLiteConnection(DB_Path_c)
+            'Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
+            Dim SQLiteCon As New SQLiteConnection(DB_Path)
 
             Try
                 SQLiteCon.Open()
@@ -350,8 +351,8 @@ Public Class map_preferencias
 
     Public Function f_comprobar_bd() As ent_retorno
         Dim lo_ret As New ent_retorno
-        Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
-        Dim SQLiteCon As New SQLiteConnection(DB_Path_c)
+        'Dim DB_Path_c As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
+        Dim SQLiteCon As New SQLiteConnection(DB_Path)
 
         Try
             SQLiteCon.Open()
