@@ -5,8 +5,8 @@ Imports System.IO
 Imports ns.dal
 Public Class map_ejecucion
     Dim io_Datos As New dal_Conexion
-    Public Function f_ejecutar_sql(ByVal p_nombre_archivo As String, ByVal p_ruta As String, ByVal p_nombre_amb_c As String) As ent_retorno
-        Dim lo_ret As New ent_retorno
+    Public Function f_ejecutar_sql(ByVal p_nombre_archivo As String, ByVal p_ruta As String, ByVal p_nombre_amb_c As String) As ent_retorno_ejecucion
+        Dim lo_ret As New ent_retorno_ejecucion
         Dim lo_contenido_sql As String = ""
         Dim lo_cadena_conexion As String = ""
         Dim lo_parametros As New ent_parametros_conex
@@ -101,6 +101,7 @@ Public Class map_ejecucion
 
             lo_ret.p_cod_error_i = -1
             lo_ret.p_desc_error_c = ex.Message
+            lo_ret.p_liena_c = sql_a_ejecución
 
         End Try
 

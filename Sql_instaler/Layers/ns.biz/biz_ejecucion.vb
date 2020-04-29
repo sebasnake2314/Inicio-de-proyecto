@@ -2,8 +2,8 @@
 Imports ns.ent
 Public Class biz_ejecucion
 
-    Public Function f_ejecutar_sql(ByVal p_nombre_archivo As String, ByVal p_ruta As String, ByVal p_nombre_amb_c As String) As ent_retorno
-        Dim lo_ret As New ent_retorno
+    Public Function f_ejecutar_sql(ByVal p_nombre_archivo As String, ByVal p_ruta As String, ByVal p_nombre_amb_c As String) As ent_retorno_ejecucion
+        Dim lo_ret As New ent_retorno_ejecucion
         Dim lo_map As New map_ejecucion
         Try
 

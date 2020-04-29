@@ -80,6 +80,7 @@
     <Compile Include="ent_preferencias.vb" />
     <Compile Include="ent_retorno.vb" />
     <Compile Include="ent_retorno_ambiente.vb" />
+    <Compile Include="ent_retorno_ejecucion.vb" />
     <Compile Include="ent_tipo_paq.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

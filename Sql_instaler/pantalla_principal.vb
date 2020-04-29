@@ -524,7 +524,8 @@ Public Class pantalla_principal_sql
         Dim fila_archivo As Integer = 0
         Dim lo_check As Boolean
         Dim lo_biz As New biz_ejecucion
-        Dim lo_ret_ejecucion As New ent_retorno
+        'Dim lo_ret_ejecucion As New ent_retorno
+        Dim lo_ret_ejecucion As New ent_retorno_ejecucion
         Dim nombre_archivo As String = ""
         Dim grid As DataGridView = CType(sender, DataGridView)
         Try
@@ -589,6 +590,9 @@ Public Class pantalla_principal_sql
                                 grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
                                 grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0
                                 MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
+                                tabladecontrol.SelectedIndex = 1
+                                cuadrodetexto.SelectedText = lo_ret_ejecucion.p_liena_c
+                                cuadrodetexto.Find(lo_ret_ejecucion.p_liena_c)
 
                             End If
 
