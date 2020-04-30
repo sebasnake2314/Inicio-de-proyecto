@@ -163,5 +163,8 @@ Public Class Administrador_de_ambientes
             btnsave.Image = My.Resources.not_save
             btnsave.Enabled = False
         End Try
+
+        NotifyIcon1.Dispose()
+
     End Sub
 End Class

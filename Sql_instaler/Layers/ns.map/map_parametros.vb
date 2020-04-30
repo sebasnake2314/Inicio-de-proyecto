@@ -3,7 +3,7 @@ Imports ns.ent
 Imports System.Data.SQLite
 Imports ns.utl
 Public Class map_parametros
-    Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing))
+    Dim DB_Path As String = "Data Source=" & (My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "bd_SQL_Instaler", Nothing)) & "\db.db"
     Public Sub f_set_parametros_de_conexión(ByVal p_usuario As String, ByVal p_password As String, ByVal p_hots As String, ByVal p_puerto As String)
         Dim lo_cadena_conexion As String = ""
         Dim lo_dal As New dal_Conexion
@@ -41,8 +41,7 @@ Public Class map_parametros
                 lo_ret.p_puerto_c = dt.Rows(0)("amd_puerto_c")
                 lo_ret.p_usuario_c = dt.Rows(0)("amb_usuario_c")
                 lo_ret.p_password_c = dt.Rows(0)("amb_password_c")
-                lo_ret.p_es_encrip_i = 1
-                'lo_ret.p_es_encrip_i = dt.Rows(0)("amb_pass_encrip_b")
+                lo_ret.p_es_encrip_i = dt.Rows(0)("amb_pass_encrip_b")
 
             End If
 
