@@ -28,6 +28,9 @@ Public Class pantalla_principal_sql
                 ' todos.Text = "Todos"
                 'submenu.DropDownItems.Add(todos)
 
+                salir.Text = "Salir"
+                abrir.Text = "Abrir"
+
                 If lista_subitems.Count > 0 Then
                     submenu.Text = "Ejecutar"
                     For Each items As String In lista_subitems
@@ -46,13 +49,14 @@ Public Class pantalla_principal_sql
                         archivos.Text = items
                         submenu.DropDownItems.Add(archivos)
                     Next
-                End If
+                    ContextMenuStrip1.Items.Add(abrir)
+                    ContextMenuStrip1.Items.Add(submenu)
+                    ContextMenuStrip1.Items.Add(salir)
+                Else
 
-                salir.Text = "Salir"
-                abrir.Text = "Abrir"
-                ContextMenuStrip1.Items.Add(abrir)
-                ContextMenuStrip1.Items.Add(submenu)
-                ContextMenuStrip1.Items.Add(salir)
+                    ContextMenuStrip1.Items.Add(abrir)
+                    ContextMenuStrip1.Items.Add(salir)
+                End If
 
                 NotifyIcon1.ShowBalloonTip(3000, "Sql instaler", "SQL instaler en segundo plano", ToolTipIcon.Info)
                 NotifyIcon1.BalloonTipTitle = "Sql Instaler"
