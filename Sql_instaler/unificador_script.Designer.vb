@@ -48,6 +48,8 @@ Partial Class unificador_script
         Me.txtnropaquete = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.txtnro = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.titlebar.SuspendLayout()
         CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +121,8 @@ Partial Class unificador_script
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel1.Controls.Add(Me.Label9)
+        Me.Panel1.Controls.Add(Me.txtnro)
         Me.Panel1.Controls.Add(Me.btndirectorio)
         Me.Panel1.Controls.Add(Me.btncancelar)
         Me.Panel1.Controls.Add(Me.btnsave)
@@ -327,6 +331,27 @@ Partial Class unificador_script
         Me.Label3.TabIndex = 30
         Me.Label3.Text = "Nro. Paquete:"
         '
+        'txtnro
+        '
+        Me.txtnro.BackColor = System.Drawing.Color.White
+        Me.txtnro.Font = New System.Drawing.Font("Century Gothic", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtnro.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.txtnro.Location = New System.Drawing.Point(328, 12)
+        Me.txtnro.Name = "txtnro"
+        Me.txtnro.Size = New System.Drawing.Size(75, 19)
+        Me.txtnro.TabIndex = 48
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label9.Location = New System.Drawing.Point(286, 12)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(35, 17)
+        Me.Label9.TabIndex = 49
+        Me.Label9.Text = "Nro.:"
+        '
         'unificador_script
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -378,4 +403,6 @@ Partial Class unificador_script
     Friend WithEvents btncancelar As PictureBox
     Friend WithEvents btnsave As PictureBox
     Friend WithEvents btndirectorio As PictureBox
+    Friend WithEvents Label9 As Label
+    Public WithEvents txtnro As TextBox
 End Class

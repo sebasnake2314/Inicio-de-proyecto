@@ -2,6 +2,7 @@
 Imports System.IO
 Imports ns.biz
 Imports System.ComponentModel
+Imports System.Text
 Public Class barra_de_carga
     Dim io_tipos_pac As New List(Of ent_tipo_paq)
 
@@ -48,7 +49,7 @@ Public Class barra_de_carga
 
 
             'Modifico variables de encabezado
-            enca_final = String.Format(encabezado_final, inicio, datos_script_inicial.m_mes_c, datos_script_inicial.m_dia_c, datos_script_inicial.m_anio_c, abre_tipo_paq_c & " " & Trim(datos_script_inicial.m_nro_paquete_c) & " - " & datos_script_inicial.m_des_paquete_c)
+            enca_final = String.Format(encabezado_final, inicio, datos_script_inicial.m_mes_c, datos_script_inicial.m_dia_c, datos_script_inicial.m_anio_c, abre_tipo_paq_c & " " & Trim(datos_script_inicial.m_nro_sol_inc_ade_c) & " - " & datos_script_inicial.m_des_paquete_c)
 
             'nombre_archivo = Sql_Instaler.grip_nombre_archi.Rows(Sql_Instaler.grip_nombre_archi.SelectedCells.Item(0).RowIndex).Cells(0).Value
             'ruta = datos_script_inicial.m_directorio_c
@@ -77,72 +78,121 @@ Public Class barra_de_carga
             div_barra = 100 / div_barra
             div_barra = Math.Ceiling(div_barra)
 
-            If datos_script_inicial.m_separador_b = True Then
+            'Inicio de armar texto de archivo
+            For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
 
-                For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
+                If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
+                    'Obtengo nombre del archivo en fila evaluada
+                    nombre_archivo = pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(0).Value
 
-                    If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
-                        'Obtengo nombre del archivo en fila evaluada
-                        nombre_archivo = pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(0).Value
-
-                        If File.Exists(pantalla_principal_sql.txtdirectorio.Text & "\" & nombre_archivo & ".sql") Then
-                            'Agrego el texto de archivo .sql con salto de linea
-                            Texto = Texto + My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", Nothing) + Environment.NewLine + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql") + Environment.NewLine
-                        Else
-
-                            If MsgBox("Hubo un problema con el archivo " & nombre_archivo & ".sql. ¿Desea continuar con el script inicial sin este archivo?.", vbInformation + vbYesNo, "Atención") = vbNo Then
-                                Me.Close()
-                                Exit Sub
-                            End If
-                        End If
-
-                    End If
-
-
-                    Label2.Text = ProgressBar1.Value & (" %")
-
-                    If ProgressBar1.Value >= 90 Then
-                        Label1.Visible = True
-                    End If
-
-                    ProgressBar1.Increment(div_barra)
-
-                Next
-
-            Else
-
-                For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
-
-                    If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
-                        'Obtengo nombre del archivo en fila evaluada
-                        nombre_archivo = pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(0).Value
-
-                        If File.Exists(pantalla_principal_sql.txtdirectorio.Text & "\" & nombre_archivo & ".sql") = True Then
-                            'Agrego el texto de archivo .sql con salto de linea
-                            Texto = Texto + My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", Nothing) + Environment.NewLine + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql") + Environment.NewLine
-                        Else
-
-                            If MsgBox("Hubo un problema con el archivo " & nombre_archivo & ".sql. ¿Desea continuar con el script inicial sin este archivo?.", vbInformation + vbYesNo, "Atención") = vbNo Then
-                                Me.Close()
-                                Exit Sub
-                            End If
-                        End If
-
+                    If File.Exists(pantalla_principal_sql.txtdirectorio.Text & "\" & nombre_archivo & ".sql") Then
+                        Dim sql As String = ""
                         'Agrego el texto de archivo .sql con salto de linea
-                        Texto = Texto + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql") + Environment.NewLine
+                        If datos_script_inicial.m_separador_b = False Then
+                            sql = vbNewLine + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql", Encoding.Default) + Environment.NewLine
+                        Else
+                            sql = vbNewLine + My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", Nothing) + Environment.NewLine + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql", Encoding.Default) + Environment.NewLine
+                        End If
+
+                        Texto = String.Format(Texto + "{0}", sql)
+
+                    Else
+
+                        If MsgBox("Hubo un problema con el archivo " & nombre_archivo & ".sql. ¿Desea continuar con el script inicial sin este archivo?.", vbInformation + vbYesNo, "Atención") = vbNo Then
+                            Me.Close()
+                            Exit Sub
+                        End If
                     End If
 
-
-                    Label2.Text = ProgressBar1.Value & (" %")
-                    ProgressBar1.Increment(div_barra)
-
-                    If ProgressBar1.Value >= 90 Then
-                        Label1.Visible = True
-                    End If
+                End If
 
 
-                Next
-            End If
+                Label2.Text = ProgressBar1.Value & (" %")
+
+                If ProgressBar1.Value >= 90 Then
+                    Label1.Visible = True
+                End If
+
+                ProgressBar1.Increment(div_barra)
+
+            Next
+
+
+
+
+
+            'If datos_script_inicial.m_separador_b = False Then ------------------------------------------------------------------------------
+
+            '    For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
+
+            '        If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
+            '            'Obtengo nombre del archivo en fila evaluada
+            '            nombre_archivo = pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(0).Value
+
+            '            If File.Exists(pantalla_principal_sql.txtdirectorio.Text & "\" & nombre_archivo & ".sql") Then
+            '                Dim sql As String = ""
+            '                'Agrego el texto de archivo .sql con salto de linea
+            '                sql = vbNewLine + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql") + Environment.NewLine
+
+            '                Texto = String.Format(Texto + "{0}", sql)
+
+            '            Else
+
+            '                If MsgBox("Hubo un problema con el archivo " & nombre_archivo & ".sql. ¿Desea continuar con el script inicial sin este archivo?.", vbInformation + vbYesNo, "Atención") = vbNo Then
+            '                    Me.Close()
+            '                    Exit Sub
+            '                End If
+            '            End If
+
+            '        End If
+
+
+            '        Label2.Text = ProgressBar1.Value & (" %")
+
+            '        If ProgressBar1.Value >= 90 Then
+            '            Label1.Visible = True
+            '        End If
+
+            '        ProgressBar1.Increment(div_barra)
+
+            '    Next
+
+            'Else
+
+            '    For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
+
+            '        If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
+            '            'Obtengo nombre del archivo en fila evaluada
+            '            nombre_archivo = pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(0).Value
+
+            '            If File.Exists(pantalla_principal_sql.txtdirectorio.Text & "\" & nombre_archivo & ".sql") = True Then
+            '                Dim sql As String = ""
+            '                'Agrego el texto de archivo .sql con salto de linea
+            '                sql = vbNewLine + My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\sql_instaler", "separador_SQL_Instaler", Nothing) + Environment.NewLine + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql") + Environment.NewLine
+            '                Texto = String.Format(Texto + "{0}", sql)
+            '            Else
+
+            '                If MsgBox("Hubo un problema con el archivo " & nombre_archivo & ".sql. ¿Desea continuar con el script inicial sin este archivo?.", vbInformation + vbYesNo, "Atención") = vbNo Then
+            '                    Me.Close()
+            '                    Exit Sub
+            '                End If
+            '            End If
+
+            '            'Agrego el texto de archivo .sql con salto de linea
+            '            Texto = Texto + My.Computer.FileSystem.ReadAllText(ruta & "\" & nombre_archivo & ".sql") + Environment.NewLine
+            '        End If
+
+
+            '        Label2.Text = ProgressBar1.Value & (" %")
+            '        ProgressBar1.Increment(div_barra)
+
+            '        If ProgressBar1.Value >= 90 Then
+            '            Label1.Visible = True
+            '        End If
+
+
+            '    Next
+            'End If
 
 
             'Creo el archivo .sql

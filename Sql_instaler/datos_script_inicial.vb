@@ -4,6 +4,7 @@ Module datos_script_inicial
     Public m_directorio_c As String
     Public m_nro_paquete_c As String
     Public m_des_paquete_c As String
+    Public m_nro_sol_inc_ade_c As String
     Public m_dia_c As String
     Public m_mes_c As String
     Public m_anio_c As String

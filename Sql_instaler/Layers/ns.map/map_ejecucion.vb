@@ -3,6 +3,7 @@ Imports Sybase.Data.AseClient.AseDbType
 Imports ns.ent
 Imports System.IO
 Imports ns.dal
+Imports System.Text
 Public Class map_ejecucion
     Dim io_Datos As New dal_Conexion
     Public Function f_ejecutar_sql(ByVal p_nombre_archivo As String, ByVal p_ruta As String, ByVal p_nombre_amb_c As String) As ent_retorno_ejecucion
@@ -24,7 +25,7 @@ Public Class map_ejecucion
 
             lo_parametros = lo_map.f_traer_parametros_de_conexion(p_nombre_amb_c)
 
-            Dim lector As New StreamReader(p_ruta & "\" & p_nombre_archivo & ".sql")
+            Dim lector As New StreamReader(p_ruta & "\" & p_nombre_archivo & ".sql", Encoding.Default)
 
             ' Leer el contenido mientras no se llegue al final
             While lector.Peek() <> -1

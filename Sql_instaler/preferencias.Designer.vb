@@ -26,33 +26,33 @@ Partial Class preferencias
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(preferencias))
         Me.Label2 = New System.Windows.Forms.Label()
         Me.titlebar = New System.Windows.Forms.Panel()
+        Me.btnmini = New System.Windows.Forms.PictureBox()
+        Me.btnclose = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Comboambientes = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtubibd = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.btncancelar = New System.Windows.Forms.PictureBox()
         Me.btnsave = New System.Windows.Forms.PictureBox()
         Me.btneditaramb = New System.Windows.Forms.PictureBox()
         Me.btndropamb = New System.Windows.Forms.PictureBox()
         Me.btnagregaramb = New System.Windows.Forms.PictureBox()
-        Me.btnmini = New System.Windows.Forms.PictureBox()
-        Me.btnclose = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtubibd = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Comboambientes = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.titlebar.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnsave, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btneditaramb, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btndropamb, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnagregaramb, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -79,78 +79,37 @@ Partial Class preferencias
         Me.titlebar.Size = New System.Drawing.Size(589, 47)
         Me.titlebar.TabIndex = 1
         '
-        'Panel1
+        'btnmini
         '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.Panel1.Controls.Add(Me.PictureBox2)
-        Me.Panel1.Controls.Add(Me.txtubibd)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.CheckBox1)
-        Me.Panel1.Controls.Add(Me.btncancelar)
-        Me.Panel1.Controls.Add(Me.btnsave)
-        Me.Panel1.Controls.Add(Me.btneditaramb)
-        Me.Panel1.Controls.Add(Me.btndropamb)
-        Me.Panel1.Controls.Add(Me.btnagregaramb)
-        Me.Panel1.Controls.Add(Me.Comboambientes)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Location = New System.Drawing.Point(8, 53)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(574, 174)
-        Me.Panel1.TabIndex = 2
+        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
+        Me.btnmini.Location = New System.Drawing.Point(514, 9)
+        Me.btnmini.Name = "btnmini"
+        Me.btnmini.Size = New System.Drawing.Size(33, 31)
+        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnmini.TabIndex = 6
+        Me.btnmini.TabStop = False
         '
-        'CheckBox1
+        'btnclose
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBox1.Location = New System.Drawing.Point(33, 42)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.CheckBox1.Size = New System.Drawing.Size(161, 21)
-        Me.CheckBox1.TabIndex = 32
-        Me.CheckBox1.Text = ":Iniciar con Windows"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
+        Me.btnclose.Location = New System.Drawing.Point(553, 9)
+        Me.btnclose.Name = "btnclose"
+        Me.btnclose.Size = New System.Drawing.Size(33, 31)
+        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnclose.TabIndex = 5
+        Me.btnclose.TabStop = False
         '
-        'Comboambientes
+        'PictureBox1
         '
-        Me.Comboambientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Comboambientes.FormattingEnabled = True
-        Me.Comboambientes.Location = New System.Drawing.Point(176, 15)
-        Me.Comboambientes.Name = "Comboambientes"
-        Me.Comboambientes.Size = New System.Drawing.Size(298, 21)
-        Me.Comboambientes.TabIndex = 12
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label3.Location = New System.Drawing.Point(5, 17)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(170, 17)
-        Me.Label3.TabIndex = 11
-        Me.Label3.Text = "Ambiente de instalación:"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label1.Location = New System.Drawing.Point(19, 72)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(156, 17)
-        Me.Label1.TabIndex = 33
-        Me.Label1.Text = "Base de configuración:"
-        '
-        'txtubibd
-        '
-        Me.txtubibd.BackColor = System.Drawing.Color.White
-        Me.txtubibd.Enabled = False
-        Me.txtubibd.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.txtubibd.Location = New System.Drawing.Point(176, 71)
-        Me.txtubibd.Name = "txtubibd"
-        Me.txtubibd.ReadOnly = True
-        Me.txtubibd.Size = New System.Drawing.Size(298, 20)
-        Me.txtubibd.TabIndex = 34
+        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
+        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
         '
         'PictureBox2
         '
@@ -226,37 +185,78 @@ Partial Class preferencias
         Me.btnagregaramb.TabStop = False
         Me.ToolTip1.SetToolTip(Me.btnagregaramb, "Agregar nuevo ambiente")
         '
-        'btnmini
+        'Panel1
         '
-        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
-        Me.btnmini.Location = New System.Drawing.Point(514, 9)
-        Me.btnmini.Name = "btnmini"
-        Me.btnmini.Size = New System.Drawing.Size(33, 31)
-        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnmini.TabIndex = 6
-        Me.btnmini.TabStop = False
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel1.Controls.Add(Me.PictureBox2)
+        Me.Panel1.Controls.Add(Me.txtubibd)
+        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.CheckBox1)
+        Me.Panel1.Controls.Add(Me.btncancelar)
+        Me.Panel1.Controls.Add(Me.btnsave)
+        Me.Panel1.Controls.Add(Me.btneditaramb)
+        Me.Panel1.Controls.Add(Me.btndropamb)
+        Me.Panel1.Controls.Add(Me.btnagregaramb)
+        Me.Panel1.Controls.Add(Me.Comboambientes)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Location = New System.Drawing.Point(8, 53)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(574, 174)
+        Me.Panel1.TabIndex = 2
         '
-        'btnclose
+        'txtubibd
         '
-        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
-        Me.btnclose.Location = New System.Drawing.Point(553, 9)
-        Me.btnclose.Name = "btnclose"
-        Me.btnclose.Size = New System.Drawing.Size(33, 31)
-        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnclose.TabIndex = 5
-        Me.btnclose.TabStop = False
+        Me.txtubibd.BackColor = System.Drawing.Color.White
+        Me.txtubibd.Enabled = False
+        Me.txtubibd.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.txtubibd.Location = New System.Drawing.Point(176, 71)
+        Me.txtubibd.Name = "txtubibd"
+        Me.txtubibd.ReadOnly = True
+        Me.txtubibd.Size = New System.Drawing.Size(298, 20)
+        Me.txtubibd.TabIndex = 34
         '
-        'PictureBox1
+        'Label1
         '
-        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
-        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label1.Location = New System.Drawing.Point(19, 72)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(156, 17)
+        Me.Label1.TabIndex = 33
+        Me.Label1.Text = "Base de configuración:"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckBox1.Location = New System.Drawing.Point(33, 42)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.CheckBox1.Size = New System.Drawing.Size(161, 21)
+        Me.CheckBox1.TabIndex = 32
+        Me.CheckBox1.Text = ":Iniciar con Windows"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'Comboambientes
+        '
+        Me.Comboambientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Comboambientes.FormattingEnabled = True
+        Me.Comboambientes.Location = New System.Drawing.Point(176, 15)
+        Me.Comboambientes.Name = "Comboambientes"
+        Me.Comboambientes.Size = New System.Drawing.Size(298, 21)
+        Me.Comboambientes.TabIndex = 12
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label3.Location = New System.Drawing.Point(5, 17)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(170, 17)
+        Me.Label3.TabIndex = 11
+        Me.Label3.Text = "Ambiente de instalación:"
         '
         'preferencias
         '
@@ -273,17 +273,17 @@ Partial Class preferencias
         Me.Text = "Preferencias"
         Me.titlebar.ResumeLayout(False)
         Me.titlebar.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnsave, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btneditaramb, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btndropamb, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnagregaramb, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

@@ -1,11 +1,9 @@
 ﻿Imports System.Runtime.InteropServices
 Imports Microsoft.Win32
 Imports System.IO
-Imports Finisar.SQLite
 Imports ns.biz
 Imports ns.ent
 Imports System.Text
-Imports Microsoft.Win32.Registry
 
 Public Class pantalla_principal_sql
     Dim lo_ret_conex As New ent_retorno
@@ -972,29 +970,64 @@ Public Class pantalla_principal_sql
 
     Public Sub llenar_contenedor_texto(ByVal p_nombre_archivo)
         Dim lo_contenido_sql As String
+        'Dim lector As New StreamReader
+        Dim sql As String = ""
+        Dim Nombre_archivo As String = ""
         Try
 
+            Nombre_archivo = p_nombre_archivo
+            'ruta = txtdirectorio.Text
 
-            'lo_contenido_sql = My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql")
+            ' Dim lector As New StreamReader(ruta & "\" & p_nombre_archivo & ".sql")
+
+            'lector = txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"
 
             lo_contenido_sql = My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql")
 
+            ' lo_contenido_sql = My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql")
+            Nombre_archivo = txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"
+
+
 
             'Dim lector As String = My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql")
-            'Dim ANSI As New StreamReader(lo_contenido_sql, Encoding.GetEncoding(1252))
+            'Dim ANSI As New StreamReader(Nombre_archivo)
+            ' Dim ANSI As New StreamReader((txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"), Encoding.Unicode)
+
+
+            Dim sFile As String = txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"
+            Dim sFileText As String
+
+
+
+            Dim srStreamReader As New StreamReader(sFile, Encoding.Default)
+            sFileText = srStreamReader.ReadToEnd()
+
+
+            cuadrodetexto.Text = sFileText
+
+
+            srStreamReader.Close()
+
+            'Dim swStreamWriter As TextWriter = New StreamWriter(sFile & ".new")
+            'swStreamWriter.Write(sFileText)
+            'swStreamWriter.Close()
+
+            ' Dim ANSI As New StreamReader(My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"))
 
             'Dim b As String = "AaáÁäÄñÑ"
             'Dim bytes As Byte()
-            'bytes = System.Text.Encoding.UTF8.GetBytes(My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"))
-            'Dim a As String = System.Text.Encoding.UTF8.GetString(bytes)
+            'bytes = System.Text.Encoding.GetEncoding(1145).GetBytes(My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"))
+            'Dim a As String = System.Text.Encoding.GetEncoding(1145).GetString(bytes)
 
 
-            Dim bytes As Byte() = System.Text.Encoding.GetEncoding(1252).GetBytes(My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"))
-            Dim a As String = System.Text.Encoding.GetEncoding(1252).GetString(bytes)
 
-            lo_contenido_sql = a
+            'Dim bytes As Byte() = System.Text.Encoding.UTF8.GetBytes(My.Computer.FileSystem.ReadAllText(txtdirectorio.Text & "\" & p_nombre_archivo & ".sql"))
+            'Dim a As String = System.Text.Encoding.ASCII.GetString(bytes)
 
-            cuadrodetexto.Text = lo_contenido_sql
+            'lo_contenido_sql = a
+
+            'cuadrodetexto.Text = lo_contenido_sql
+
 
         Catch ex As Exception
 

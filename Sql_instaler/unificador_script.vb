@@ -38,6 +38,7 @@ Public Class unificador_script
         datos_script_inicial.m_directorio_c = txtdirectorio.Text
         datos_script_inicial.m_nro_paquete_c = txtnropaquete.Text
         datos_script_inicial.m_des_paquete_c = txtdespaquete.Text
+        datos_script_inicial.m_nro_sol_inc_ade_c = txtnro.Text
         datos_script_inicial.m_separador_b = checkseparador.Checked
         datos_script_inicial.m_anio_c = fechaelegida.Value.Year
         datos_script_inicial.m_mes_c = fechaelegida.Value.Month

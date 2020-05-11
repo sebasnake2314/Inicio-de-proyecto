@@ -246,4 +246,5 @@ Public Class preferencias
         End Try
 
     End Sub
+
 End Class
