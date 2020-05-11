@@ -178,7 +178,8 @@ Public Class pantalla_principal_sql
         Dim cantidad_archivos_sql As Integer = 0
         Dim lo_biz As New biz_preferencias
         Dim lo_ret As New ent_preferencias
-
+        Dim fileCreatedDate As New DateTime
+        Dim contador_archivos As Integer = 0
         Try
 
             'Limpio lista de archivos
@@ -195,12 +196,25 @@ Public Class pantalla_principal_sql
                 txtdirectorio.Text = IO.Path.GetDirectoryName(Folder.SelectedPath) & "\" & IO.Path.GetFileName(Folder.SelectedPath)
 
                 For Each archivo As String In My.Computer.FileSystem.GetFiles(txtdirectorio.Text, FileIO.SearchOption.SearchTopLevelOnly, "*.sql")
+
                     Dim arr As String()
                     arr = Split(archivo, ".")
                     arr = Split(arr(arr.Length - 2), Chr(92))
                     archivo = arr(arr.Length - 1)
                     lista_subitems.Add(archivo)
                     lista_archivos_sql.Add(archivo)
+
+                    Dim direct As String = ""
+                    direct = txtdirectorio.Text & "\" & archivo & ".sql"
+
+
+                    fileCreatedDate = File.GetLastWriteTime(direct)
+                    'Convert.ToString(fileCreatedDate)
+                    grip_nombre_archi.Rows.Add(archivo)
+                    grip_nombre_archi.Rows(contador_archivos).Cells("fecha_archivo").Value = fileCreatedDate.ToString("dd/MM/yyyy H:mm:ss")
+                    contador_archivos += 1
+                    lbcantarch.Text = contador_archivos
+
                 Next
 
                 If lista_archivos_sql.Count = 0 Then
@@ -220,14 +234,18 @@ Public Class pantalla_principal_sql
                     Comboambientes.Visible = False
                     btnejecutarsql.Visible = False
                     tabladecontrol.Visible = False
+                    txtdirectorio.Visible = False
+                    btnabrirdirectorio.Visible = False
+                    btnorder.Visible = False
+
                 Else
 
                     lbcantarch.Text = lista_archivos_sql.Count
                     'Agrego lista de archivos a ListView
-                    For Each items As String In lista_archivos_sql
-                        grip_nombre_archi.Rows.Add(items)
-
-                    Next
+                    'For Each items As String In lista_archivos_sql
+                    '    grip_nombre_archi.Rows.Add(items)
+                    '    'grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.cargando_sql_pequeno
+                    'Next
 
                     Try
 
@@ -261,7 +279,9 @@ Public Class pantalla_principal_sql
                     lbamb.Visible = True
                     btnejecutarsql.Visible = True
                     tabladecontrol.Visible = True
-
+                    txtdirectorio.Visible = True
+                    btnabrirdirectorio.Visible = True
+                    btnorder.Visible = True
                     Dim nombre_archivo_sql As String = grip_nombre_archi.Rows(0).Cells(0).Value
 
                     llenar_contenedor_texto(nombre_archivo_sql)
@@ -287,6 +307,9 @@ Public Class pantalla_principal_sql
                 Comboambientes.Visible = False
                 btnejecutarsql.Visible = False
                 tabladecontrol.Visible = False
+                txtdirectorio.Visible = False
+                btnabrirdirectorio.Visible = False
+                btnorder.Visible = False
             End If
 
         Catch ex As Exception
@@ -931,9 +954,9 @@ Public Class pantalla_principal_sql
     Private Sub btneditar_MouseEnter(sender As Object, e As EventArgs) Handles btneditar.MouseEnter
         mensajetooltip(ToolTip, btneditar, "Editar nombre de archivo")
     End Sub
-    Private Sub btneditar_MouseHover(sender As Object, e As EventArgs) Handles btneditar.MouseHover
-        Me.btneditar.BorderStyle = BorderStyle.Fixed3D
-    End Sub
+    'Private Sub btneditar_MouseHover(sender As Object, e As EventArgs) Handles btneditar.MouseHover
+    '    Me.btneditar.BorderStyle = BorderStyle.Fixed3D
+    'End Sub
     Private Sub btneditar_MouseLeave(sender As Object, e As EventArgs) Handles btneditar.MouseLeave
         Me.btneditar.BorderStyle = BorderStyle.None
     End Sub
