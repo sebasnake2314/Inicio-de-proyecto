@@ -62,7 +62,7 @@ Public Class barra_de_carga
             Dim count_check As Integer = 0
             For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
 
-                If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
+                If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(2).Value Then
 
                     count_check += 1
 
@@ -81,7 +81,7 @@ Public Class barra_de_carga
             'Inicio de armar texto de archivo
             For i As Integer = 0 To pantalla_principal_sql.grip_nombre_archi.Rows.Count - 1
 
-                If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(1).Value Then
+                If pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(2).Value Then
                     'Obtengo nombre del archivo en fila evaluada
                     nombre_archivo = pantalla_principal_sql.grip_nombre_archi.Rows(i).Cells(0).Value
 
@@ -198,10 +198,10 @@ Public Class barra_de_carga
             'Creo el archivo .sql
             'Dim directorio As String = unificador_script.txtdirectorio.Text
             'Dim nro_paquete As String = unificador_script.txtnropaquete.Text
-            Dim oSW As New StreamWriter(datos_script_inicial.m_directorio_c & "\Script Inicial Paquete " & Trim(datos_script_inicial.m_nro_paquete_c) & ".sql")
+            Dim oSW As New StreamWriter(datos_script_inicial.m_directorio_c & "\Script Inicial Paquete " & Trim(datos_script_inicial.m_nro_paquete_c) & ".sql", False, Encoding.Default)
 
             'Edito el contenido del archivo .sql
-            oSW.WriteLine(Texto)
+            oSW.WriteLine(Texto, Encoding.Default)
             oSW.Flush()
             oSW.Close()
 

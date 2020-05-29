@@ -171,6 +171,24 @@ Public Class pantalla_principal_sql
         End Try
     End Sub
 
+    Public Function DetectEncodingFromBom(data() As Byte) As Encoding
+        Return Encoding.GetEncodings().
+           Select(Function(info) info.GetEncoding()).
+           FirstOrDefault(Function(enc) DataStartsWithBom(data, enc))
+    End Function
+
+    Private Function DataStartsWithBom(data() As Byte, enc As Encoding) As Boolean
+        Dim bom() As Byte = enc.GetPreamble()
+        If bom.Length <> 0 Then
+            Return data.
+               Zip(bom, Function(x, y) x = y).
+               All(Function(x) x)
+        Else
+            Return False
+        End If
+    End Function
+
+
     Private Sub btnselecdirectorio_Click(sender As Object, e As EventArgs) Handles btnselecdirectorio.Click
 
         Dim Folder As New FolderBrowserDialog
@@ -206,7 +224,6 @@ Public Class pantalla_principal_sql
 
                     Dim direct As String = ""
                     direct = txtdirectorio.Text & "\" & archivo & ".sql"
-
 
                     fileCreatedDate = File.GetLastWriteTime(direct)
                     'Convert.ToString(fileCreatedDate)
@@ -452,13 +469,13 @@ Public Class pantalla_principal_sql
         Try
             For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
 
-                lo_check = grip_nombre_archi.Rows(i).Cells(1).Value
+                lo_check = grip_nombre_archi.Rows(i).Cells(2).Value
 
                 If lo_check = False Then
 
-                    grip_nombre_archi.Rows(i).Cells(1).Value = True
+                    grip_nombre_archi.Rows(i).Cells(2).Value = True
                 Else
-                    grip_nombre_archi.Rows(i).Cells(1).Value = False
+                    grip_nombre_archi.Rows(i).Cells(2).Value = False
                 End If
 
             Next
@@ -552,9 +569,9 @@ Public Class pantalla_principal_sql
 
             For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
 
-                If grip_nombre_archi.Rows(i).Cells(1).Value = True And grip_nombre_archi.Rows(i).Cells(3).Value = 1 Then
+                If grip_nombre_archi.Rows(i).Cells(2).Value = True And grip_nombre_archi.Rows(i).Cells(4).Value = 1 Then
                     coun = +1
-                ElseIf grip_nombre_archi.Rows(i).Cells(1).Value = True And grip_nombre_archi.Rows(i).Cells(3).Value = 0 Or grip_nombre_archi.Rows(i).Cells(1).Value = True And grip_nombre_archi.Rows(i).Cells(3).Value = Nothing Then
+                ElseIf grip_nombre_archi.Rows(i).Cells(2).Value = True And grip_nombre_archi.Rows(i).Cells(4).Value = 0 Or grip_nombre_archi.Rows(i).Cells(2).Value = True And grip_nombre_archi.Rows(i).Cells(4).Value = Nothing Then
                     coun = +1
                     coun_neg = +1
                 End If
@@ -619,14 +636,14 @@ Public Class pantalla_principal_sql
 
                         If grip_nombre_archi.Rows(i).Selected = True Then
 
-                            lo_check = grip_nombre_archi.Rows(fila_archivo).Cells(1).Value
+                            lo_check = grip_nombre_archi.Rows(fila_archivo).Cells(2).Value
 
                             If lo_check = False Then
 
-                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = True
+                                grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = True
 
                             Else
-                                grip_nombre_archi.Rows(fila_archivo).Cells(1).Value = False
+                                grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = False
 
                             End If
                         Else
@@ -643,17 +660,17 @@ Public Class pantalla_principal_sql
 
                         If File.Exists(txtdirectorio.Text & "\" & nombre_archivo & ".sql") Then
 
-                            grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.cargando_sql_pequeno
+                            grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = My.Resources.cargando_sql_pequeno
 
                             lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
 
                             If lo_ret_ejecucion.p_cod_error_i = 0 Then
-                                grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_exito_pequeno
-                                grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 1
+                                grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = My.Resources.sql_exito_pequeno
+                                grip_nombre_archi.Rows(fila_archivo).Cells(4).Value = 1
                                 MsgBox("Ejecución sin errores", vbInformation, "Exito")
                             Else
-                                grip_nombre_archi.Rows(fila_archivo).Cells(2).Value = My.Resources.sql_error_pequeno
-                                grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = 0
+                                grip_nombre_archi.Rows(fila_archivo).Cells(3).Value = My.Resources.sql_error_pequeno
+                                grip_nombre_archi.Rows(fila_archivo).Cells(4).Value = 0
                                 MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
                                 tabladecontrol.SelectedIndex = 1
                                 cuadrodetexto.SelectedText = lo_ret_ejecucion.p_liena_c
@@ -691,20 +708,20 @@ Public Class pantalla_principal_sql
 
             For i As Integer = 0 To grip_nombre_archi.Rows.Count - 1
 
-                If grip_nombre_archi.Rows(i).Cells(1).Value Then
+                If grip_nombre_archi.Rows(i).Cells(2).Value Then
 
                     nombre_archivo = grip_nombre_archi.Rows(i).Cells(0).Value
 
-                    grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.cargando_sql_pequeno
+                    grip_nombre_archi.Rows(i).Cells(3).Value = My.Resources.cargando_sql_pequeno
 
                     lo_ret_ejecucion = lo_biz.f_ejecutar_sql(nombre_archivo, txtdirectorio.Text, Comboambientes.SelectedItem.ToString())
 
                     If lo_ret_ejecucion.p_cod_error_i = 0 Then
-                        grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.sql_exito_pequeno
-                        grip_nombre_archi.Rows(i).Cells(3).Value = 1
+                        grip_nombre_archi.Rows(i).Cells(3).Value = My.Resources.sql_exito_pequeno
+                        grip_nombre_archi.Rows(i).Cells(4).Value = 1
                     Else
-                        grip_nombre_archi.Rows(i).Cells(2).Value = My.Resources.sql_error_pequeno
-                        grip_nombre_archi.Rows(i).Cells(3).Value = 0
+                        grip_nombre_archi.Rows(i).Cells(3).Value = My.Resources.sql_error_pequeno
+                        grip_nombre_archi.Rows(i).Cells(4).Value = 0
                         MsgBox("Ocurrio un problema en ejecución: " & lo_ret_ejecucion.p_cod_error_i & " " & lo_ret_ejecucion.p_desc_error_c, vbCritical, "Atención")
                         Exit Sub
                     End If
@@ -1057,5 +1074,6 @@ Public Class pantalla_principal_sql
         End Try
 
     End Sub
+
 
 End Class

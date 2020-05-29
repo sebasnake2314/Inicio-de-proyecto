@@ -25,8 +25,22 @@ Partial Class pantalla_principal_sql
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(pantalla_principal_sql))
         Me.titlebar = New System.Windows.Forms.Panel()
+        Me.btnmini = New System.Windows.Forms.PictureBox()
+        Me.btnclose = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.btnorder = New System.Windows.Forms.PictureBox()
+        Me.btnejecutarsql = New System.Windows.Forms.PictureBox()
+        Me.btnunificar = New System.Windows.Forms.PictureBox()
+        Me.btnactualizar = New System.Windows.Forms.PictureBox()
+        Me.btnabrirarchivo = New System.Windows.Forms.PictureBox()
+        Me.btneditar = New System.Windows.Forms.PictureBox()
+        Me.btnselecionartodo = New System.Windows.Forms.PictureBox()
+        Me.btnabrirdirectorio = New System.Windows.Forms.PictureBox()
+        Me.btnsubir = New System.Windows.Forms.PictureBox()
+        Me.btnbajar = New System.Windows.Forms.PictureBox()
+        Me.btnselecdirectorio = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtdirectorio = New System.Windows.Forms.TextBox()
         Me.lbcantarch = New System.Windows.Forms.Label()
@@ -42,41 +56,23 @@ Partial Class pantalla_principal_sql
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.lbconex = New System.Windows.Forms.Label()
         Me.grip_nombre_archi = New System.Windows.Forms.DataGridView()
+        Me.nombre_archivo_sql = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.fecha_archivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.selecionar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.ejecucion_sql = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.ejecucion_exitosa = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.cuadrodetexto = New System.Windows.Forms.RichTextBox()
         Me.lbamb = New System.Windows.Forms.Label()
         Me.Comboambientes = New System.Windows.Forms.ComboBox()
-        Me.nombre_archivo_sql = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.fecha_archivo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.selecionar = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.ejecucion_exitosa = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewImageColumn1 = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.btnorder = New System.Windows.Forms.PictureBox()
-        Me.ejecucion_sql = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.btnejecutarsql = New System.Windows.Forms.PictureBox()
         Me.btn_conex = New System.Windows.Forms.PictureBox()
-        Me.btnunificar = New System.Windows.Forms.PictureBox()
-        Me.btnactualizar = New System.Windows.Forms.PictureBox()
-        Me.btnabrirarchivo = New System.Windows.Forms.PictureBox()
-        Me.btneditar = New System.Windows.Forms.PictureBox()
-        Me.btnselecionartodo = New System.Windows.Forms.PictureBox()
-        Me.btnabrirdirectorio = New System.Windows.Forms.PictureBox()
-        Me.btnsubir = New System.Windows.Forms.PictureBox()
-        Me.btnbajar = New System.Windows.Forms.PictureBox()
-        Me.btnselecdirectorio = New System.Windows.Forms.PictureBox()
-        Me.btnmini = New System.Windows.Forms.PictureBox()
-        Me.btnclose = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.titlebar.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
-        Me.tabladecontrol.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage2.SuspendLayout()
+        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnejecutarsql, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnunificar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnactualizar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnabrirarchivo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,9 +82,13 @@ Partial Class pantalla_principal_sql
         CType(Me.btnsubir, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnbajar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnselecdirectorio, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
+        Me.tabladecontrol.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
+        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'titlebar
@@ -104,6 +104,30 @@ Partial Class pantalla_principal_sql
         Me.titlebar.Size = New System.Drawing.Size(558, 47)
         Me.titlebar.TabIndex = 0
         '
+        'btnmini
+        '
+        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
+        Me.btnmini.Location = New System.Drawing.Point(483, 9)
+        Me.btnmini.Name = "btnmini"
+        Me.btnmini.Size = New System.Drawing.Size(33, 31)
+        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnmini.TabIndex = 6
+        Me.btnmini.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnmini, "Minimizar")
+        '
+        'btnclose
+        '
+        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
+        Me.btnclose.Location = New System.Drawing.Point(522, 9)
+        Me.btnclose.Name = "btnclose"
+        Me.btnclose.Size = New System.Drawing.Size(33, 31)
+        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnclose.TabIndex = 5
+        Me.btnclose.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnclose, "Cerrar")
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -114,6 +138,158 @@ Partial Class pantalla_principal_sql
         Me.Label2.Size = New System.Drawing.Size(90, 19)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Sql Instaler"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
+        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabStop = False
+        '
+        'btnorder
+        '
+        Me.btnorder.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnorder.Image = Global.Sql_instaler.My.Resources.Resources.order
+        Me.btnorder.Location = New System.Drawing.Point(164, 210)
+        Me.btnorder.Name = "btnorder"
+        Me.btnorder.Size = New System.Drawing.Size(24, 22)
+        Me.btnorder.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnorder.TabIndex = 34
+        Me.btnorder.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnorder, "Establecer order de ejecución de archivos")
+        Me.btnorder.Visible = False
+        '
+        'btnejecutarsql
+        '
+        Me.btnejecutarsql.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnejecutarsql.Image = Global.Sql_instaler.My.Resources.Resources.ejecutar_consulta
+        Me.btnejecutarsql.Location = New System.Drawing.Point(45, 210)
+        Me.btnejecutarsql.Name = "btnejecutarsql"
+        Me.btnejecutarsql.Size = New System.Drawing.Size(24, 22)
+        Me.btnejecutarsql.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnejecutarsql.TabIndex = 32
+        Me.btnejecutarsql.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnejecutarsql, "Mirar achivo")
+        Me.btnejecutarsql.Visible = False
+        '
+        'btnunificar
+        '
+        Me.btnunificar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnunificar.Image = Global.Sql_instaler.My.Resources.Resources.unificar_scripts
+        Me.btnunificar.Location = New System.Drawing.Point(17, 210)
+        Me.btnunificar.Name = "btnunificar"
+        Me.btnunificar.Size = New System.Drawing.Size(24, 22)
+        Me.btnunificar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnunificar.TabIndex = 26
+        Me.btnunificar.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnunificar, "Unificar Script seleccionado/s")
+        Me.btnunificar.Visible = False
+        '
+        'btnactualizar
+        '
+        Me.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnactualizar.Image = Global.Sql_instaler.My.Resources.Resources.actualizar
+        Me.btnactualizar.Location = New System.Drawing.Point(134, 210)
+        Me.btnactualizar.Name = "btnactualizar"
+        Me.btnactualizar.Size = New System.Drawing.Size(24, 22)
+        Me.btnactualizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnactualizar.TabIndex = 25
+        Me.btnactualizar.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnactualizar, "Actualizar")
+        Me.btnactualizar.Visible = False
+        '
+        'btnabrirarchivo
+        '
+        Me.btnabrirarchivo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnabrirarchivo.Image = Global.Sql_instaler.My.Resources.Resources.mirar_archivo
+        Me.btnabrirarchivo.Location = New System.Drawing.Point(74, 210)
+        Me.btnabrirarchivo.Name = "btnabrirarchivo"
+        Me.btnabrirarchivo.Size = New System.Drawing.Size(24, 22)
+        Me.btnabrirarchivo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnabrirarchivo.TabIndex = 24
+        Me.btnabrirarchivo.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnabrirarchivo, "Mirar achivo")
+        Me.btnabrirarchivo.Visible = False
+        '
+        'btneditar
+        '
+        Me.btneditar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btneditar.Image = Global.Sql_instaler.My.Resources.Resources.script_editar
+        Me.btneditar.Location = New System.Drawing.Point(104, 210)
+        Me.btneditar.Name = "btneditar"
+        Me.btneditar.Size = New System.Drawing.Size(24, 22)
+        Me.btneditar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btneditar.TabIndex = 23
+        Me.btneditar.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btneditar, "Editar nombre de archivo")
+        Me.btneditar.Visible = False
+        '
+        'btnselecionartodo
+        '
+        Me.btnselecionartodo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnselecionartodo.Image = Global.Sql_instaler.My.Resources.Resources.select_all
+        Me.btnselecionartodo.Location = New System.Drawing.Point(518, 210)
+        Me.btnselecionartodo.Name = "btnselecionartodo"
+        Me.btnselecionartodo.Size = New System.Drawing.Size(24, 22)
+        Me.btnselecionartodo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnselecionartodo.TabIndex = 22
+        Me.btnselecionartodo.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnselecionartodo, "Seleccionar todo")
+        Me.btnselecionartodo.Visible = False
+        '
+        'btnabrirdirectorio
+        '
+        Me.btnabrirdirectorio.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnabrirdirectorio.Image = Global.Sql_instaler.My.Resources.Resources.abrir_carpeta
+        Me.btnabrirdirectorio.Location = New System.Drawing.Point(504, 118)
+        Me.btnabrirdirectorio.Name = "btnabrirdirectorio"
+        Me.btnabrirdirectorio.Size = New System.Drawing.Size(28, 27)
+        Me.btnabrirdirectorio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnabrirdirectorio.TabIndex = 21
+        Me.btnabrirdirectorio.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnabrirdirectorio, "Selecionar una carpeta")
+        Me.btnabrirdirectorio.Visible = False
+        '
+        'btnsubir
+        '
+        Me.btnsubir.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnsubir.Image = Global.Sql_instaler.My.Resources.Resources.subir
+        Me.btnsubir.Location = New System.Drawing.Point(466, 210)
+        Me.btnsubir.Name = "btnsubir"
+        Me.btnsubir.Size = New System.Drawing.Size(24, 22)
+        Me.btnsubir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnsubir.TabIndex = 20
+        Me.btnsubir.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnsubir, "Subir Archivo")
+        Me.btnsubir.Visible = False
+        '
+        'btnbajar
+        '
+        Me.btnbajar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnbajar.Image = Global.Sql_instaler.My.Resources.Resources.bajar
+        Me.btnbajar.Location = New System.Drawing.Point(492, 210)
+        Me.btnbajar.Name = "btnbajar"
+        Me.btnbajar.Size = New System.Drawing.Size(24, 22)
+        Me.btnbajar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnbajar.TabIndex = 19
+        Me.btnbajar.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnbajar, "Bajar archivo")
+        Me.btnbajar.Visible = False
+        '
+        'btnselecdirectorio
+        '
+        Me.btnselecdirectorio.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnselecdirectorio.Image = Global.Sql_instaler.My.Resources.Resources.select_folder
+        Me.btnselecdirectorio.Location = New System.Drawing.Point(203, 87)
+        Me.btnselecdirectorio.Name = "btnselecdirectorio"
+        Me.btnselecdirectorio.Size = New System.Drawing.Size(28, 27)
+        Me.btnselecdirectorio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnselecdirectorio.TabIndex = 7
+        Me.btnselecdirectorio.TabStop = False
+        Me.ToolTip.SetToolTip(Me.btnselecdirectorio, "Selecionar una carpeta")
         '
         'Label1
         '
@@ -263,6 +439,45 @@ Partial Class pantalla_principal_sql
         Me.grip_nombre_archi.TabIndex = 30
         Me.grip_nombre_archi.Visible = False
         '
+        'nombre_archivo_sql
+        '
+        Me.nombre_archivo_sql.HeaderText = "Nombre Archivo"
+        Me.nombre_archivo_sql.Name = "nombre_archivo_sql"
+        Me.nombre_archivo_sql.ReadOnly = True
+        Me.nombre_archivo_sql.Width = 220
+        '
+        'fecha_archivo
+        '
+        Me.fecha_archivo.HeaderText = "Fecha"
+        Me.fecha_archivo.Name = "fecha_archivo"
+        Me.fecha_archivo.ReadOnly = True
+        Me.fecha_archivo.Width = 120
+        '
+        'selecionar
+        '
+        Me.selecionar.HeaderText = "Seleccionar"
+        Me.selecionar.Name = "selecionar"
+        Me.selecionar.ReadOnly = True
+        Me.selecionar.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.selecionar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.selecionar.Width = 70
+        '
+        'ejecucion_sql
+        '
+        Me.ejecucion_sql.HeaderText = "Ejecución"
+        Me.ejecucion_sql.Image = Global.Sql_instaler.My.Resources.Resources.exec_sql_pequeno
+        Me.ejecucion_sql.Name = "ejecucion_sql"
+        Me.ejecucion_sql.ReadOnly = True
+        Me.ejecucion_sql.ToolTipText = "Click para ejecutar sql en ambiente"
+        Me.ejecucion_sql.Width = 80
+        '
+        'ejecucion_exitosa
+        '
+        Me.ejecucion_exitosa.HeaderText = "eject"
+        Me.ejecucion_exitosa.Name = "ejecucion_exitosa"
+        Me.ejecucion_exitosa.ReadOnly = True
+        Me.ejecucion_exitosa.Visible = False
+        '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.cuadrodetexto)
@@ -282,7 +497,7 @@ Partial Class pantalla_principal_sql
         Me.cuadrodetexto.Location = New System.Drawing.Point(-3, 0)
         Me.cuadrodetexto.Name = "cuadrodetexto"
         Me.cuadrodetexto.ReadOnly = True
-        Me.cuadrodetexto.Size = New System.Drawing.Size(435, 184)
+        Me.cuadrodetexto.Size = New System.Drawing.Size(525, 184)
         Me.cuadrodetexto.TabIndex = 0
         Me.cuadrodetexto.Text = ""
         '
@@ -308,36 +523,6 @@ Partial Class pantalla_principal_sql
         Me.Comboambientes.TabIndex = 31
         Me.Comboambientes.Visible = False
         '
-        'nombre_archivo_sql
-        '
-        Me.nombre_archivo_sql.HeaderText = "Nombre Archivo"
-        Me.nombre_archivo_sql.Name = "nombre_archivo_sql"
-        Me.nombre_archivo_sql.ReadOnly = True
-        Me.nombre_archivo_sql.Width = 220
-        '
-        'fecha_archivo
-        '
-        Me.fecha_archivo.HeaderText = "Fecha"
-        Me.fecha_archivo.Name = "fecha_archivo"
-        Me.fecha_archivo.ReadOnly = True
-        Me.fecha_archivo.Width = 120
-        '
-        'selecionar
-        '
-        Me.selecionar.HeaderText = "Seleccionar"
-        Me.selecionar.Name = "selecionar"
-        Me.selecionar.ReadOnly = True
-        Me.selecionar.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.selecionar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.selecionar.Width = 70
-        '
-        'ejecucion_exitosa
-        '
-        Me.ejecucion_exitosa.HeaderText = "eject"
-        Me.ejecucion_exitosa.Name = "ejecucion_exitosa"
-        Me.ejecucion_exitosa.ReadOnly = True
-        Me.ejecucion_exitosa.Visible = False
-        '
         'DataGridViewImageColumn1
         '
         Me.DataGridViewImageColumn1.HeaderText = "Ejecución"
@@ -347,41 +532,6 @@ Partial Class pantalla_principal_sql
         Me.DataGridViewImageColumn1.ReadOnly = True
         Me.DataGridViewImageColumn1.ToolTipText = "Click para ejecutar sql en ambiente"
         Me.DataGridViewImageColumn1.Width = 80
-        '
-        'btnorder
-        '
-        Me.btnorder.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnorder.Image = Global.Sql_instaler.My.Resources.Resources.order
-        Me.btnorder.Location = New System.Drawing.Point(164, 210)
-        Me.btnorder.Name = "btnorder"
-        Me.btnorder.Size = New System.Drawing.Size(24, 22)
-        Me.btnorder.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnorder.TabIndex = 34
-        Me.btnorder.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnorder, "Establecer order de ejecución de archivos")
-        Me.btnorder.Visible = False
-        '
-        'ejecucion_sql
-        '
-        Me.ejecucion_sql.HeaderText = "Ejecución"
-        Me.ejecucion_sql.Image = Global.Sql_instaler.My.Resources.Resources.exec_sql_pequeno
-        Me.ejecucion_sql.Name = "ejecucion_sql"
-        Me.ejecucion_sql.ReadOnly = True
-        Me.ejecucion_sql.ToolTipText = "Click para ejecutar sql en ambiente"
-        Me.ejecucion_sql.Width = 80
-        '
-        'btnejecutarsql
-        '
-        Me.btnejecutarsql.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnejecutarsql.Image = Global.Sql_instaler.My.Resources.Resources.ejecutar_consulta
-        Me.btnejecutarsql.Location = New System.Drawing.Point(45, 210)
-        Me.btnejecutarsql.Name = "btnejecutarsql"
-        Me.btnejecutarsql.Size = New System.Drawing.Size(24, 22)
-        Me.btnejecutarsql.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnejecutarsql.TabIndex = 32
-        Me.btnejecutarsql.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnejecutarsql, "Mirar achivo")
-        Me.btnejecutarsql.Visible = False
         '
         'btn_conex
         '
@@ -393,156 +543,6 @@ Partial Class pantalla_principal_sql
         Me.btn_conex.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.btn_conex.TabIndex = 28
         Me.btn_conex.TabStop = False
-        '
-        'btnunificar
-        '
-        Me.btnunificar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnunificar.Image = Global.Sql_instaler.My.Resources.Resources.unificar_scripts
-        Me.btnunificar.Location = New System.Drawing.Point(17, 210)
-        Me.btnunificar.Name = "btnunificar"
-        Me.btnunificar.Size = New System.Drawing.Size(24, 22)
-        Me.btnunificar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnunificar.TabIndex = 26
-        Me.btnunificar.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnunificar, "Unificar Script seleccionado/s")
-        Me.btnunificar.Visible = False
-        '
-        'btnactualizar
-        '
-        Me.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnactualizar.Image = Global.Sql_instaler.My.Resources.Resources.actualizar
-        Me.btnactualizar.Location = New System.Drawing.Point(134, 210)
-        Me.btnactualizar.Name = "btnactualizar"
-        Me.btnactualizar.Size = New System.Drawing.Size(24, 22)
-        Me.btnactualizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnactualizar.TabIndex = 25
-        Me.btnactualizar.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnactualizar, "Actualizar")
-        Me.btnactualizar.Visible = False
-        '
-        'btnabrirarchivo
-        '
-        Me.btnabrirarchivo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnabrirarchivo.Image = Global.Sql_instaler.My.Resources.Resources.mirar_archivo
-        Me.btnabrirarchivo.Location = New System.Drawing.Point(74, 210)
-        Me.btnabrirarchivo.Name = "btnabrirarchivo"
-        Me.btnabrirarchivo.Size = New System.Drawing.Size(24, 22)
-        Me.btnabrirarchivo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnabrirarchivo.TabIndex = 24
-        Me.btnabrirarchivo.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnabrirarchivo, "Mirar achivo")
-        Me.btnabrirarchivo.Visible = False
-        '
-        'btneditar
-        '
-        Me.btneditar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btneditar.Image = Global.Sql_instaler.My.Resources.Resources.script_editar
-        Me.btneditar.Location = New System.Drawing.Point(104, 210)
-        Me.btneditar.Name = "btneditar"
-        Me.btneditar.Size = New System.Drawing.Size(24, 22)
-        Me.btneditar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btneditar.TabIndex = 23
-        Me.btneditar.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btneditar, "Editar nombre de archivo")
-        Me.btneditar.Visible = False
-        '
-        'btnselecionartodo
-        '
-        Me.btnselecionartodo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnselecionartodo.Image = Global.Sql_instaler.My.Resources.Resources.select_all
-        Me.btnselecionartodo.Location = New System.Drawing.Point(518, 210)
-        Me.btnselecionartodo.Name = "btnselecionartodo"
-        Me.btnselecionartodo.Size = New System.Drawing.Size(24, 22)
-        Me.btnselecionartodo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnselecionartodo.TabIndex = 22
-        Me.btnselecionartodo.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnselecionartodo, "Seleccionar todo")
-        Me.btnselecionartodo.Visible = False
-        '
-        'btnabrirdirectorio
-        '
-        Me.btnabrirdirectorio.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnabrirdirectorio.Image = Global.Sql_instaler.My.Resources.Resources.abrir_carpeta
-        Me.btnabrirdirectorio.Location = New System.Drawing.Point(504, 118)
-        Me.btnabrirdirectorio.Name = "btnabrirdirectorio"
-        Me.btnabrirdirectorio.Size = New System.Drawing.Size(28, 27)
-        Me.btnabrirdirectorio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnabrirdirectorio.TabIndex = 21
-        Me.btnabrirdirectorio.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnabrirdirectorio, "Selecionar una carpeta")
-        Me.btnabrirdirectorio.Visible = False
-        '
-        'btnsubir
-        '
-        Me.btnsubir.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnsubir.Image = Global.Sql_instaler.My.Resources.Resources.subir
-        Me.btnsubir.Location = New System.Drawing.Point(466, 210)
-        Me.btnsubir.Name = "btnsubir"
-        Me.btnsubir.Size = New System.Drawing.Size(24, 22)
-        Me.btnsubir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnsubir.TabIndex = 20
-        Me.btnsubir.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnsubir, "Subir Archivo")
-        Me.btnsubir.Visible = False
-        '
-        'btnbajar
-        '
-        Me.btnbajar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnbajar.Image = Global.Sql_instaler.My.Resources.Resources.bajar
-        Me.btnbajar.Location = New System.Drawing.Point(492, 210)
-        Me.btnbajar.Name = "btnbajar"
-        Me.btnbajar.Size = New System.Drawing.Size(24, 22)
-        Me.btnbajar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnbajar.TabIndex = 19
-        Me.btnbajar.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnbajar, "Bajar archivo")
-        Me.btnbajar.Visible = False
-        '
-        'btnselecdirectorio
-        '
-        Me.btnselecdirectorio.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnselecdirectorio.Image = Global.Sql_instaler.My.Resources.Resources.select_folder
-        Me.btnselecdirectorio.Location = New System.Drawing.Point(203, 87)
-        Me.btnselecdirectorio.Name = "btnselecdirectorio"
-        Me.btnselecdirectorio.Size = New System.Drawing.Size(28, 27)
-        Me.btnselecdirectorio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnselecdirectorio.TabIndex = 7
-        Me.btnselecdirectorio.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnselecdirectorio, "Selecionar una carpeta")
-        '
-        'btnmini
-        '
-        Me.btnmini.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnmini.Image = Global.Sql_instaler.My.Resources.Resources.minimizar
-        Me.btnmini.Location = New System.Drawing.Point(483, 9)
-        Me.btnmini.Name = "btnmini"
-        Me.btnmini.Size = New System.Drawing.Size(33, 31)
-        Me.btnmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnmini.TabIndex = 6
-        Me.btnmini.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnmini, "Minimizar")
-        '
-        'btnclose
-        '
-        Me.btnclose.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnclose.Image = Global.Sql_instaler.My.Resources.Resources.close
-        Me.btnclose.Location = New System.Drawing.Point(522, 9)
-        Me.btnclose.Name = "btnclose"
-        Me.btnclose.Size = New System.Drawing.Size(33, 31)
-        Me.btnclose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnclose.TabIndex = 5
-        Me.btnclose.TabStop = False
-        Me.ToolTip.SetToolTip(Me.btnclose, "Cerrar")
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.Sql_instaler.My.Resources.Resources.sql_instaler1
-        Me.PictureBox1.Location = New System.Drawing.Point(8, 9)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(30, 31)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
         '
         'pantalla_principal_sql
         '
@@ -580,18 +580,11 @@ Partial Class pantalla_principal_sql
         Me.ToolTip.SetToolTip(Me, "Abrir directorio")
         Me.titlebar.ResumeLayout(False)
         Me.titlebar.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.tabladecontrol.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
-        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage2.ResumeLayout(False)
+        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnorder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnejecutarsql, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnunificar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnactualizar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnabrirarchivo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -601,9 +594,16 @@ Partial Class pantalla_principal_sql
         CType(Me.btnsubir, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnbajar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnselecdirectorio, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnmini, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnclose, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
+        Me.tabladecontrol.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
+        CType(Me.grip_nombre_archi, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage2.ResumeLayout(False)
+        CType(Me.btn_conex, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
